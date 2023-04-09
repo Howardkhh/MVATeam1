@@ -5,5 +5,7 @@ model = dict(
         depth=50,
         init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50')
     ),
-    neck=dict(use_dcn=False)
+    neck=dict(
+        in_channel=2048,
+        use_dcn=False)
     )

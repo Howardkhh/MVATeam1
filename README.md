@@ -1,7 +1,9 @@
 # Installation
 ```shell
+# requires cuda 11.5 and gcc10
+
 conda create -n mva_team1 -c conda-forge -y python==3.10
-conda activate team1
+conda activate mva_team1
 pip3 install torch==1.11.0+cu115 torchvision==0.12.0+cu115  -f https://download.pytorch.org/whl/torch_stable.html
 pip install openmim
 pip install mmcv-full==1.6.0 -f https://download.openmmlab.com/mmcv/dist/cu115/torch1.11/index.html
@@ -14,6 +16,17 @@ python test.py
 
 cd ..
 pip install -v -e .
+pip install -r requirements/sahi.txt
+
+```
+# Dataset
+The dataset should be the same as baseline
+```shell
+data
+ ├ drone2021
+ ├ mva2023_sod4bird_train
+ ├ mva2023_sod4bird_pub_test
+ └ mva2023_sod4bird_private_test
 ```
 
 # Training
@@ -106,3 +119,15 @@ mv work_dirs/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json submit/c
 # TODO: ensemble results from submit/ and output to results.json
 zip results.zip results.json
 ```
+
+# Trouble Shooting
+If you encounter 
+```KeyError: "CenterNet: 'InternImage is not in the models registry'"```\
+or
+```KeyError: "CenterNet: 'CustomLayerDecayOptimizerConstructor is not in the models registry'"```,\
+please add
+```python
+import mmdet_custom  # noqa: F401,F403
+import mmcv_custom  # noqa: F401,F403
+```
+to the python script you are running.

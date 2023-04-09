@@ -14,9 +14,11 @@
 module purge
 
 module load miniconda3
-module load cuda/10.2 
+module load cuda/11.5
+module load gcc10
+module load cmake
 
-conda activate mva2023
+conda activate mva_team1
 
 CONFIG=$1
 MODEL=$2

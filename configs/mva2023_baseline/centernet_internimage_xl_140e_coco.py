@@ -18,7 +18,9 @@ model = dict(
         with_cp=True,
         out_indices=(0, 1, 2, 3),
         init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
-    neck=dict(use_dcn=False)
+    neck=dict(
+        in_channel=1536,
+        use_dcn=False)
     )
 
 optimizer = dict(

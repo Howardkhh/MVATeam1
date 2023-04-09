@@ -12,7 +12,8 @@ from mmdet.core.utils import mask2ndarray
 from mmdet.core.visualization import imshow_det_bboxes
 from mmdet.datasets.builder import build_dataset
 from mmdet.utils import update_data_root
-
+import mmdet_custom  # noqa: F401,F403
+import mmcv_custom  # noqa: F401,F403
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Browse a dataset')

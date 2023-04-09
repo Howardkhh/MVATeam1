@@ -17,3 +17,4 @@ saved_weights
 *.err
 *.out
 our_train_test.sh
+ops_dcnv3/
