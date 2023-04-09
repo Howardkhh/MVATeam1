@@ -22,7 +22,9 @@ conda activate mva_team1
 
 CONFIG=$1
 # RESMUE=$2
+PY_ARGS=${@:1}
 
+export MASTER_PORT=9487
 
 export OMP_NUM_THREADS=4
 export MKL_NUM_THREADS=4

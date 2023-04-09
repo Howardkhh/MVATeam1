@@ -26,8 +26,13 @@ PY_ARGS=${@:3}
 
 echo $CONFIG
 
+export MASTER_PORT=9487
+
 export OMP_NUM_THREADS=4
 export MKL_NUM_THREADS=4
+
+export NCCL_SOCKET_IFNAME=ib0
+export NCCL_P2P_DISABLE="1"
 
 srun --kill-on-bad-exit=1 \
     python -u tools/test.py ${CONFIG} $MODEL --launcher="slurm" ${PY_ARGS}
