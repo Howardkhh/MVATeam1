@@ -1,8 +1,9 @@
 from set_lib_dir import LIB_ROOT_DIR
-_base_ = './cascade_rcnn_r18_fpn_140e_coco_nwd.py',
+_base_ = './cascade_rcnn_r18_fpn_140e_coco_nwd.py'
 data_root = LIB_ROOT_DIR + '/data/'
 
 data = dict(
+    samples_per_gpu=16,
     train=dict(
         ann_file=data_root + 'mva2023_sod4bird_train/annotations/merged_train.json',
         img_prefix=data_root + 'mva2023_sod4bird_train/images/',

@@ -97,14 +97,12 @@ model = dict(
     train_cfg=dict(
         rpn=dict(
             assigner=dict(
-                type='MaxIoUAssigner',
-                pos_iou_thr=0.7,
-                neg_iou_thr=0.3,
-                min_pos_iou=0.3,
-                match_low_quality=True,
+                type='RankingAssigner',     
                 ignore_iof_thr=-1,
-                iou_calculator=dict(type='BboxDistanceMetric'),# CASCADE_NWD
-                assign_metric='nwd'),# CASCADE_NWD
+                gpu_assign_thr=512,
+                iou_calculator=dict(type='BboxDistanceMetric'),
+                assign_metric='nwd',  # nwd_rpn
+                topk=3),
             sampler=dict(
                 type='RandomSampler',
                 num=256,
