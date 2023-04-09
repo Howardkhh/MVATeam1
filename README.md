@@ -1,3 +1,21 @@
+# Installation
+```shell
+conda create -n mva_team1 -c conda-forge -y python==3.10
+conda activate team1
+pip3 install torch==1.11.0+cu115 torchvision==0.12.0+cu115  -f https://download.pytorch.org/whl/torch_stable.html
+pip install openmim
+pip install mmcv-full==1.6.0 -f https://download.openmmlab.com/mmcv/dist/cu115/torch1.11/index.html
+pip install timm opencv-python termcolor yacs pyyaml scipy
+
+cd ./ops_dcnv3
+sh ./make.sh
+# unit test (should see all checking is True)
+python test.py
+
+cd ..
+pip install -v -e .
+```
+
 # Training
 ## Centernet Baseline
 ```shell
