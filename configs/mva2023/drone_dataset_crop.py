@@ -29,6 +29,7 @@ test_pipeline = [
         scale_factor=1.0,
         flip=True,
         transforms=[
+            dict(type='RandomFlip'),
             dict(type='Normalize', **img_norm_cfg),
             dict(type='DefaultFormatBundle'),
             dict(

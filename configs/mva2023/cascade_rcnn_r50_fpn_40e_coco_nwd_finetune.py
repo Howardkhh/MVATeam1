@@ -17,7 +17,7 @@ data = dict(
         img_prefix=data_root + 'mva2023_sod4bird_train/images/',
     )
 )        
-runner = dict(max_epochs=20)
+runner = dict(max_epochs=40)
 
 load_from = LIB_ROOT_DIR + '/work_dirs/cascade_rcnn_r50_fpn_140e_coco_nwd/latest.pth'
 

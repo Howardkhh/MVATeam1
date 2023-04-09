@@ -76,7 +76,7 @@ python3 tools/train.py  configs/mva2023/cascade_rcnn_r18_fpn_20e_coco_nwd_finetu
 
 # Cascade RCNN r50
 python3 tools/train.py  configs/mva2023/cascade_rcnn_r50_fpn_140e_coco_nwd.py
-python3 tools/train.py  configs/mva2023/cascade_rcnn_r50_fpn_20e_coco_nwd_finetune.py
+python3 tools/train.py  configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py
 
 # Cascade intern image xl
 python3 tools/train.py  configs/mva2023/cascade_rcnn_internimage_xl_fpn_140e_coco_nwd.py
@@ -98,11 +98,11 @@ python3 tools/sahi_evaluation.py configs/mva2023/cascade_rcnn_r18_fpn_20e_coco_n
     data/mva2023_sod4bird_private_test/images/ \
     data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
     --out-file-name cascade_rcnn_r18_fpn_20e_coco_nwd_finetune.json
-python3 tools/sahi_evaluation.py configs/mva2023/cascade_rcnn_r50_fpn_20e_coco_nwd_finetune.py \
-    work_dirs/cascade_rcnn_r50_fpn_20e_coco_nwd_finetune/latest.pth \
+python3 tools/sahi_evaluation.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py \
+    work_dirs/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth \
     data/mva2023_sod4bird_private_test/images/ \
     data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
-    --out-file-name cascade_rcnn_r50_fpn_20e_coco_nwd_finetune.json
+    --out-file-name cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.json
 python3 tools/sahi_evaluation.py configs/mva2023/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.py \
     work_dirs/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune/latest.pth \
     data/mva2023_sod4bird_private_test/images/ \
@@ -110,7 +110,7 @@ python3 tools/sahi_evaluation.py configs/mva2023/cascade_rcnn_internimage_xl_fpn
     --out-file-name cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json
 
 mv work_dirs/cascade_rcnn_r18_fpn_20e_coco_nwd_finetune.json submit/cascade_rcnn_r18_fpn_20e_coco_nwd_finetune.json
-mv work_dirs/cascade_rcnn_r50_fpn_20e_coco_nwd_finetune.json submit/cascade_rcnn_r50_fpn_20e_coco_nwd_finetune.json
+mv work_dirs/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.json submit/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.json
 mv work_dirs/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json submit/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json
 ```
 

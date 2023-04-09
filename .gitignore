@@ -3,6 +3,7 @@ submit/
 .idea/
 env/
 work_dirs/
+work_dirs
 mmdet.egg-info/
 __pycache__/
 *.py[cod]
