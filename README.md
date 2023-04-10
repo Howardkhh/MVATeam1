@@ -116,8 +116,17 @@ mv work_dirs/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json submit/c
 
 # Ensemble
 ```shell
-# TODO: ensemble results from submit/ and output to results.json
+# Ensemble Method1: Weighted Box Fusion
+# 1. List models we want to ensemble in config_wbf.txt.
+# 2. Set weights for the corresponding models in ensemble_wbf.py
+ensemble('config_wbf.txt', 'results.json', weights=[2,4,5,6,8])
+# 3. Execute ensemble_wbf.py to generate results.json
+./ensemble_wbf.py
+# 4. Compress the results.json to results.zip and we're done.
 zip results.zip results.json
+
+################################################################
+# Ensemble Method2: 
 ```
 
 # Trouble Shooting
