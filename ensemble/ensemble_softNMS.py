@@ -1,60 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[19]:
+# In[14]:
 
 
+from ensemble_boxes import *
 import json
-import numpy as np
 
 
-# In[29]:
-
-
-def calculate_NMS(boxes, overlap_threshold=0.8):
-    # input type of boxes - np array of [x_min, y_min, width, height, score] 
-    if len(boxes) == 0:
-        return []
-    
-    chosen_idx = []
-    x_min = boxes[:, 0].astype(float)
-    y_min = boxes[:, 1].astype(float)
-    x_max = x_min + boxes[:, 2].astype(float)
-    y_max = y_min + boxes[:, 3].astype(float)
-    score = boxes[:, 4].astype(float)
-    
-    box_area = (x_max - x_min + 1) * (y_max - y_min + 1)
-    indices = np.argsort(score)
-    
-    while(len(indices) > 0):
-        last_idx = len(indices) - 1
-        
-        i = indices[last_idx]
-        chosen_idx.append(i)
-        suppress = [last_idx]
-    
-        for pos in range(0, last_idx):
-            j = indices[pos]
-
-            xx1 = max(x_min[i], x_min[j])
-            yy1 = max(y_min[i], y_min[j])
-            xx2 = min(x_max[i], x_max[j])
-            yy2 = min(y_max[i], y_max[j])
-
-            w = max(0, xx2 - xx1 + 1)
-            h = max(0, yy2 - yy1 + 1)
-            
-            overlap = float(w * h) / box_area[j]
-            
-            if overlap > overlap_threshold:
-                suppress.append(pos)
-
-        indices = np.delete(indices, suppress)
-        
-    return boxes[chosen_idx]
-
-
-# In[25]:
+# In[21]:
 
 
 class json_ensembler:
@@ -102,49 +56,64 @@ class json_ensembler:
     
     def ensamble(self):
         
-        for image in range(0, self.test_img_num):
+        for image in range(0, self.test_img_num ):#
             pred_bboxes_list = []
-            
+            pred_scores_list = []
+            pred_label_list = []
             for i in range(0, len(self.json_file)):
                 pred_bboxes = []
+                pred_scores = []
+                pred_labels = []
                 start = 0 if image == 0 else self.prefix_sum[i][image-1]
                 for j in range(start, self.prefix_sum[i][image]):
                     cur_box = self.json_file[i][j]['bbox']
-                    cur_box.append(self.json_file[i][j]['score']*self.weights[i])
-                    pred_bboxes.append(np.array(cur_box))
+                    cur_box[2] += cur_box[0]
+                    cur_box[3] += cur_box[1]
+                    cur_box[0] = cur_box[0] / 3840
+                    cur_box[1] = cur_box[1] / 2160
+                    cur_box[2] = cur_box[2] / 3840
+                    cur_box[3] = cur_box[3] / 2160
+                    
+                    pred_scores.append(self.json_file[i][j]['score'])
+                    pred_labels.append(0)
+                    pred_bboxes.append(cur_box)
+                    
                 
-                if len(pred_bboxes) == 0:
-                    pred_bboxes = np.empty((0, 5), float)
-                    pred_bboxes_list.append(pred_bboxes)
-                else:
-                    pred_bboxes_list.append(np.asarray(pred_bboxes))
+                pred_bboxes_list.append(pred_bboxes)
+                pred_scores_list.append(pred_scores)
+                pred_label_list.append(pred_labels)
             
-            all_pred_bboxes = np.append(pred_bboxes_list[0], pred_bboxes_list[1], axis = 0)
-            for i in range(2, len(self.json_file)):
-                all_pred_bboxes = np.append(all_pred_bboxes, pred_bboxes_list[i], axis = 0)
+            iou_thr = 0.5
+            skip_box_thr = 0.0001
+            sigma = 0.1
             
-            # print(len(all_pred_bboxes))
+            tot_box = 0
             
-            NMS_boxes = calculate_NMS(all_pred_bboxes)
+            for i in range(0, len(pred_bboxes_list)):
+                # print(pred_bboxes_list[i])
+                tot_box += len(pred_bboxes_list[i])
             
-            # print(len(NMS_boxes))
+            if tot_box > 0:
+                boxes, scores, labels = soft_nms(pred_bboxes_list, pred_scores_list,
+                        pred_label_list, weights=self.weights, iou_thr=iou_thr, sigma=sigma, thresh=skip_box_thr)
+                # boxes, scores, labels = non_maximum_weighted(pred_bboxes_list, pred_scores_list,
+                #         pred_label_list, weights=self.weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
+                # boxes, scores, labels = weighted_boxes_fusion(pred_bboxes_list, pred_scores_list, pred_label_list,
+                #                weights=self.weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
             
-            
-            self.bbox_formatting(NMS_boxes, image+1)
+                self.bbox_formatting(boxes, scores, image+1)
             print('Current Progress: {} / {}'.format(image+1, self.test_img_num), end='\r')
         
         with open(self.output_file, "w") as f:
             json.dump(self.output, f)
-            # print('Current Image {}'.format(image+1))
-            # print('bbox_num: {}, {}'.format(len(pred_bboxes_list[0]), len(pred_bboxes_list[1])))
     
-    
-    def bbox_formatting(self, bboxes, image_id):
+    def bbox_formatting(self, bboxes, scores, image_id):
         for i in range(0, len(bboxes)):
             cur_box = dict();
             cur_box['image_id'] = image_id
-            cur_box['bbox'] = [bboxes[i][0], bboxes[i][1], bboxes[i][2], bboxes[i][3]]
-            cur_box['score'] = bboxes[i][4]
+            cur_box['bbox'] = [bboxes[i][0]*3840, bboxes[i][1]*2160, 
+                               (bboxes[i][2]-bboxes[i][0])*3840, (bboxes[i][3]-bboxes[i][1])*2160]
+            cur_box['score'] = scores[i]
             cur_box['category_id'] = 0
             self.output.append(cur_box)
     
@@ -154,13 +123,13 @@ class json_ensembler:
                 print('Result {}, Image {}'.format(file, i), self.prefix_sum[file][i])
 
 
-# In[26]:
+# In[22]:
 
 
 je = json_ensembler('config_weighted.txt', 'results.json')
 
 
-# In[27]:
+# In[23]:
 
 
 je.ensamble()
