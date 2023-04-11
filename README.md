@@ -128,9 +128,16 @@ zip results.zip results.json
 ################################################################
 
 # Ensemble Method2: Soft NMS
+
 # 1. List models and weights to for prediction ensemble in config_weighted.txt.
+# For example: 
+# prediction1.json 5
+# prediction2.json 3
+# prediction3.json 2
+
 # 2. Execute ensemble_softNMS.py to generate results.json
 python ensemble_softNMS.py
+
 # 3. Compress the results.json to results.zip and we're done.
 zip results.zip results.json
 ```
