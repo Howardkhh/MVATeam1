@@ -126,7 +126,13 @@ ensemble('config_wbf.txt', 'results.json', weights=[2,4,5,6,8])
 zip results.zip results.json
 
 ################################################################
-# Ensemble Method2: 
+
+# Ensemble Method2: Soft NMS
+# 1. List models and weights to for prediction ensemble in config_weighted.txt.
+# 2. Execute ensemble_softNMS.py to generate results.json
+python ensemble_softNMS.py
+# 3. Compress the results.json to results.zip and we're done.
+zip results.zip results.json
 ```
 
 # Trouble Shooting
