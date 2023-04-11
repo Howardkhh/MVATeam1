@@ -19,6 +19,8 @@ from mmdet.models import build_detector
 from mmdet.utils import (build_ddp, build_dp, compat_cfg, get_device,
                          setup_multi_processes, update_data_root)
 
+import mmdet_custom  # noqa: F401,F403
+import mmcv_custom  # noqa: F401,F403
 
 def parse_args():
     parser = argparse.ArgumentParser(
