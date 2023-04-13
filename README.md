@@ -116,30 +116,25 @@ mv work_dirs/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json submit/c
 
 # Ensemble
 ```shell
-# Ensemble Method1: Weighted Box Fusion
-# 1. List models we want to ensemble in config_wbf.txt.
-# 2. Set weights for the corresponding models in ensemble_wbf.py
-ensemble('config_wbf.txt', 'results.json', weights=[2,4,5,6,8])
-# 3. Execute ensemble_wbf.py to generate results.json
-./ensemble_wbf.py
+################################################################
+
+# 1. List models we want to ensemble in config.txt.
+
+# 2. Set weights for the corresponding models in ensemble.py
+ensemble('config.txt', 'results.json', weights=[2,4,5,6,8])
+
+# 3. Execute ensemble.py with argument --method to generate results.json
+# The argument --method has choices ['wbf', 'snms] with 'wbf' being the default option
+# To use the weighted boxes fusion ensembling method
+python ensemble_wbf.py --method wbf
+
+# To use the Soft NMS ensembling method
+python ensemble_wbf.py --method snms
+
 # 4. Compress the results.json to results.zip and we're done.
 zip results.zip results.json
 
 ################################################################
-
-# Ensemble Method2: Soft NMS
-
-# 1. List models and weights to for prediction ensemble in config_weighted.txt.
-# For example: 
-# prediction1.json 5
-# prediction2.json 3
-# prediction3.json 2
-
-# 2. Execute ensemble_softNMS.py to generate results.json
-python ensemble_softNMS.py
-
-# 3. Compress the results.json to results.zip and we're done.
-zip results.zip results.json
 ```
 
 # Trouble Shooting
