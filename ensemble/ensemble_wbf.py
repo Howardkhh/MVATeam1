@@ -1,4 +1,4 @@
-from ensemble_boxes import *
+from ensemble_boxes import weighted_boxes_fusion
 import json
 import numpy as np
 # need normalization for bbox coordination
