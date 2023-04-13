@@ -103,7 +103,7 @@ img_norm_cfg = dict(
 
 
 data = dict(
-    samples_per_gpu=4,
+    # samples_per_gpu=4,
     # train=dict(pipeline=train_pipeline)
     )
 # optimizer
@@ -128,7 +128,7 @@ custom_hooks = [
         momentum=0.0001,
         priority=49)
 ]
-runner = dict(type='EpochBasedRunner', max_epochs=100)
+runner = dict(type='EpochBasedRunner', max_epochs=30)
 
 train_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True, color_type='color'),

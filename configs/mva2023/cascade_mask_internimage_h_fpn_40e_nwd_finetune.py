@@ -29,8 +29,7 @@ model = dict(
         level2_post_norm_block_ids=[5, 11, 17, 23, 29],  # for InternImage-H/G
         res_post_norm=True,  # for InternImage-H/G
         center_feature_scale=True,  # for InternImage-H/G
-        out_indices=(0, 1, 2, 3),
-        init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
+        out_indices=(0, 1, 2, 3)),
     neck=dict(
         type='FPN',
         in_channels=[320, 640, 1280, 2560],
@@ -101,7 +100,7 @@ img_norm_cfg = dict(
 
 
 data = dict(
-    samples_per_gpu=2,
+    # samples_per_gpu=2,
     # train=dict(pipeline=train_pipeline)
     )
 # optimizer
@@ -115,12 +114,9 @@ optimizer_config = dict(grad_clip=None)
 evaluation = dict(interval=999, metric='bbox')
 load_from = LIB_ROOT_DIR + '/work_dirs/cascade_mask_internimage_h_fpn_100e_coco_nwd/latest.pth'
 checkpoint_config = dict(
-    interval=2,
-    max_keep_ckpts=5,
+    interval=3,
+    max_keep_ckpts=3,
     save_last=True,
-)
-log_config = dict(
-    interval=100,
 )
 resume_from = None
 custom_hooks = [
@@ -150,7 +146,7 @@ train_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=4,
+    samples_per_gpu=2,
     train=dict(
         ann_file=data_root + 'mva2023_sod4bird_train/annotations/merged_train.json',
         img_prefix=data_root + 'mva2023_sod4bird_train/images/',
