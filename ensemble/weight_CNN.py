@@ -6,10 +6,18 @@ import json
 import numpy as np
 import torchvision.datasets as dset
 from torch.utils.data import DataLoader
-import ensemble_wbf as ensemble
+import ensemble as ensemble
 from mmdet.core.bbox.assigners.approx_max_iou_assigner import MaxIoUAssigner
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+assigner = MaxIoUAssigner(pos_iou_thr=0.7,
+                neg_iou_thr=0.3,
+                min_pos_iou=0.3,
+                match_low_quality=True,
+                ignore_iof_thr=-1,
+                iou_calculator = dict(type='BboxDistanceMetric'), #NWD
+                assign_metric='nwd' #NWD
+                )
 
 class WeightCNN(nn.Module):
     def __init__(self):
@@ -44,13 +52,17 @@ def prepare_data():
     return train_loader
     
 def loss_func(input, target):
+    # Notice: input json files outputs bbox like [x, y, w, h], 
+    # but ensemble_wbf only takes bbox like [x, y, x, y ]
     def xywh2xyxy(xywh):
         bbox = [xywh[0], xywh[1], (xywh[0] + xywh[2]), (xywh[1] + xywh[3])]
         return bbox
     loss = 0
     for img in zip(input, target):
-        img[1] = [xywh2xyxy(i) for i in img[1]]
-        assign_result =  MaxIoUAssigner(img[1], img[0])
+        img[1] = [xywh2xyxy(box) for box in img[1]]
+        assign_result =  assigner.assign(img[1], img[0])
+        # MaxIouAssigner.assign() will return an AssignResult object, 
+        # whose gt_inds indicates the index of ground truth bbox for each prediction bbox
         gt_results = img[1][assign_result.gt_inds]
         pre_results = img[0]
         loss += nn.SmoothL1Loss(pre_results, gt_results)
@@ -62,13 +74,15 @@ def model_train():
     op = optim.Adam(model.parameters(), lr = 0.0008, weight_decay= 0.00003)
     train_loader = prepare_data()
     fig_train_loss_y = []
-    for epoch in range(1, 10):
+    for epoch in range(1, 50):
 
         # training
         model.train()
         correct = 0
 
         for batch_idx, (imgs, labels) in enumerate(train_loader):
+            # labels: [[labels_box1_img1, labels_box2_img1,...], [], ... , [labels_box1_imgn, ...]]
+            # labels_box1_img1: dict type, has attribute bbox, category_id, image_id
             batch_size = len(imgs)
             bboxes_list = []
             ids_list = []
@@ -94,7 +108,7 @@ def model_train():
             op.zero_grad()
             output = model(img_list)
 
-            results = ensemble("config.txt", "wbf.json", weights=output)
+            results = ensemble("config.txt", "wbf.json", method='wbf', weights=output)
             bboxes_predict = [ [] for i in range(batch_size)]
             
             for data in results:
