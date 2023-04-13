@@ -1,15 +1,13 @@
-# --------------------------------------------------------
-# InternImage
-# Copyright (c) 2022 OpenGVLab
-# Licensed under The MIT License [see LICENSE for details]
-# --------------------------------------------------------
+from set_lib_dir import LIB_ROOT_DIR
+data_root = LIB_ROOT_DIR + '/data/'
+
 _base_ = [
     '../_base_/models/cascade_mask_rcnn_r50_fpn_nwd.py',
     './drone_dataset_crop.py',
     '../_base_/schedules/schedule_3x.py',
     '../_base_/default_runtime.py'
 ]
-pretrained = 'https://huggingface.co/OpenGVLab/InternImage/resolve/main/internimage_xl_22k_192to384.pth'
+
 model = dict(
     backbone=dict(
         _delete_=True,
@@ -26,9 +24,9 @@ model = dict(
         post_norm=True,
         with_cp=True,
         out_indices=(0, 1, 2, 3),
-        init_cfg=dict(type='Pretrained', checkpoint=pretrained)),
+        ),
     neck=dict(
-        type='PAFPN',
+        type='FPN',
         in_channels=[192, 384, 768, 1536],
         out_channels=256,
         num_outs=5),
@@ -97,7 +95,7 @@ img_norm_cfg = dict(
 
 
 data = dict(
-    samples_per_gpu=4,
+    samples_per_gpu=2,
     # train=dict(pipeline=train_pipeline)
     )
 # optimizer
@@ -108,11 +106,15 @@ optimizer = dict(
                        depths=[5, 5, 24, 5], offset_lr_scale=0.01))
 optimizer_config = dict(grad_clip=None)
 # fp16 = dict(loss_scale=dict(init_scale=512))
-evaluation = dict(interval=999)
+evaluation = dict(interval=999, metric='bbox')
+load_from = LIB_ROOT_DIR + '/work_dirs/cascade_mask_internimage_xl_fpn_finetune_nwd/latest.pth'
 checkpoint_config = dict(
-    interval=3,
-    max_keep_ckpts=3,
+    interval=2,
+    max_keep_ckpts=5,
     save_last=True,
+)
+log_config = dict(
+    interval=10,
 )
 resume_from = None
 custom_hooks = [
@@ -122,7 +124,7 @@ custom_hooks = [
         momentum=0.0001,
         priority=49)
 ]
-runner = dict(type='EpochBasedRunner', max_epochs=100)
+runner = dict(max_epochs=20)
 
 train_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True, color_type='color'),
@@ -143,5 +145,17 @@ train_pipeline = [
 
 data = dict(
     samples_per_gpu=4,
-    train=dict(pipeline=train_pipeline)
+    train=dict(
+        ann_file=data_root + 'mva2023_sod4bird_train/annotations/merged_train.json',
+        img_prefix=data_root + 'mva2023_sod4bird_train/images/',
+        pipeline=train_pipeline
+    ),
+    val=dict(
+        ann_file=data_root + 'mva2023_sod4bird_train/annotations/split_val_coco.json',
+        img_prefix=data_root + 'mva2023_sod4bird_train/images/',
+    ),
+    test=dict(
+        ann_file=data_root + 'mva2023_sod4bird_train/annotations/split_val_coco.json',
+        img_prefix=data_root + 'mva2023_sod4bird_train/images/',
+    )
 )
