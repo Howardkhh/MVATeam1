@@ -98,6 +98,8 @@ def ensemble(config_file, output_file, method, weights=[2,4,5,6,8], iou_thr=0.5,
     with open(output_file, "w") as f:
         json.dump(output, f)
 
+    return output
+
 parser = argparse.ArgumentParser(description='Ensemble Choices')
 parser.add_argument("--method", help="Please select wbf or snms", choices=['wbf', 'snms'], default='wbf')
 args = parser.parse_args()

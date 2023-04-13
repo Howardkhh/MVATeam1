@@ -81,13 +81,15 @@ def model_train():
         correct = 0
 
         for batch_idx, (imgs, labels) in enumerate(train_loader):
-            # labels: [[labels_box1_img1, labels_box2_img1,...], [], ... , [labels_box1_imgn, ...]]
-            # labels_box1_img1: dict type, has attribute bbox, category_id, image_id
+            # 1. each image could predict multiple bbox
+            # 2. labels is more like the metadata of the ground truth
+            # 3. labels: [[labels_box1_img1, labels_box2_img1,...], [], ... , [labels_box1_imgn, ...]]
+            # 4. labels_box1_img1: dict type, has attribute bbox, category_id, image_id
             batch_size = len(imgs)
             bboxes_list = []
             ids_list = []
             img_list = []
-            for i in range(len(imgs)):
+            for i in range(batch_size):
                 bboxes = []
                 ids = []
                 img = imgs[i]
@@ -111,6 +113,7 @@ def model_train():
             results = ensemble("config.txt", "wbf.json", method='wbf', weights=output)
             bboxes_predict = [ [] for i in range(batch_size)]
             
+            # Collect bboxes based on their image_id
             for data in results:
                 bboxes_predict[int(data['image_id'])].append(results['bbox'])
 
