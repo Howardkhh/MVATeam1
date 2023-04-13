@@ -1,4 +1,4 @@
-from ensemble_boxes import *
+from ensemble_boxes import weighted_boxes_fusion, soft_nms
 import json
 import numpy as np
 import argparse
@@ -97,6 +97,8 @@ def ensemble(config_file, output_file, method, weights=[2,4,5,6,8], iou_thr=0.5,
     
     with open(output_file, "w") as f:
         json.dump(output, f)
+    
+    return output
 
 parser = argparse.ArgumentParser(description='Ensemble Choices')
 parser.add_argument("--method", help="Please select wbf or snms", choices=['wbf', 'snms'], default='wbf')
