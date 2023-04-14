@@ -69,13 +69,18 @@ def collect_results_gpu(result_part, size):
             part_list.append(
                 pickle.loads(recv[:shape[0]].cpu().numpy().tobytes()))
         # sort the results
-        ordered_results = []
-        for res in zip(*part_list):
-            ordered_results.extend(list(res))
-        # the dataloader may pad some samples
-        ordered_results = ordered_results[:size]
-
-        return ordered_results
+        # ordered_results = []
+        # for res in zip(*part_list):
+        #     ordered_results.extend(list(res))
+        # # the dataloader may pad some samples
+        # ordered_results = ordered_results[:size]
+        
+        ret = []
+        for i in range(len(part_list)):
+            for j in range(len(part_list[i])):
+                for k in range(len(part_list[i][j])):
+                    ret.append(part_list[i][j][k])
+        return ret
 
 
 def init_dist():
@@ -155,7 +160,7 @@ def sahi_validation(args):
         with torch.no_grad():
             for imgId in batch:
                 imgId_int = int(imgId)
-                sys.stderr.write(f"rank={rank} imgId={imgId_int}\n")
+                # sys.stderr.write(f"rank={rank} imgId={imgId_int}\n")
                 # sys.stderr.write(f"coco.loadImgs(imgId)={coco.loadImgs(imgId_int)}\n")
                 img = coco.loadImgs(imgId_int)[0]
                 re = get_sliced_prediction(
@@ -169,23 +174,6 @@ def sahi_validation(args):
                     verbose=0).to_coco_predictions(image_id=imgId_int)
                 results_batch.append(re)
         results.extend([r for r in results_batch if len(r) > 0])
-        # with torch.no_grad():
-        #     results_batch = []
-        #     for imgId in batch:
-        #         x = (imgId,)
-        #         sys.stderr.write(f"imgId={imgId}\n")
-        #         img = coco.loadImgs(imgId)[0]
-        #         re = get_sliced_prediction(
-        #             str(pathlib.Path(args.datadir, img['file_name'])),
-        #             detection_model.module,
-        #             slice_height = args.crop_size,
-        #             slice_width = args.crop_size,
-        #             overlap_height_ratio = 0.1,
-        #             overlap_width_ratio = 0.1,
-        #             # perform_standard_pred=False, # uncomment this line if the whole image size is different
-        #             verbose=0).to_coco_predictions(image_id=imgId)
-        #         results_batch.append(re)
-        # results.extend([r for r in results_batch if len(r) > 0])
     
     
 
