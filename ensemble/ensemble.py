@@ -102,4 +102,5 @@ parser = argparse.ArgumentParser(description='Ensemble Choices')
 parser.add_argument("--method", help="Please select wbf or snms", choices=['wbf', 'snms'], default='wbf')
 args = parser.parse_args()
 
-ensemble('config.txt', 'results.json', weights=[2,4,5,6,8], method=args.method)
+# ensemble('config.txt', 'results.json', weights=[2,4,5,6,8], method=args.method)
+ensemble('config.txt', 'results.json', weights=[7,5,4,3,3], method=args.method)
