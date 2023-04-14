@@ -3,3 +3,5 @@ cascade_paste.json
 results_interImage.json
 cascade_rcnn_sticker_61_2.json
 cascade_original.json
+cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
+cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
