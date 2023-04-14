@@ -4,15 +4,7 @@ _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
-model = dict(
-    backbone=dict(
-        depth=18,
-        init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet18')),
-    neck=dict(
-        in_channels=[64, 128, 256, 512],
-        out_channels=256,
-        num_outs=5),
-)
+model = dict(neck=dict(type='PAFPN'))
 
 optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)

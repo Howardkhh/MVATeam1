@@ -9,6 +9,8 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import random
 import time
+import mmdet_custom  # noqa: F401,F403
+import mmcv_custom  # noqa: F401,F403
 
 def parse_args():
     parser = argparse.ArgumentParser(

@@ -13,26 +13,21 @@ model = dict(
         _delete_=True,
         type='InternImage',
         core_op='DCNv3',
-        channels=320,
-        depths=[6, 6, 32, 6],
-        groups=[10, 20, 40, 80],
+        channels=192,
+        depths=[5, 5, 24, 5],
+        groups=[12, 24, 48, 96],
         mlp_ratio=4.,
-        drop_rate=0.,
-        drop_path_rate=0.2,
+        drop_path_rate=0.6,
         norm_layer='LN',
-        layer_scale=None,
-        offset_scale=1.0,
-        post_norm=False,
+        layer_scale=1.0,
+        offset_scale=2.0,
+        post_norm=True,
         with_cp=True,
-        dw_kernel_size=5,  # for InternImage-H/G
-        level2_post_norm=True,  # for InternImage-H/G
-        level2_post_norm_block_ids=[5, 11, 17, 23, 29],  # for InternImage-H/G
-        res_post_norm=True,  # for InternImage-H/G
-        center_feature_scale=True,  # for InternImage-H/G
-        out_indices=(0, 1, 2, 3)),
+        out_indices=(0, 1, 2, 3),
+        ),
     neck=dict(
         type='FPN',
-        in_channels=[320, 640, 1280, 2560],
+        in_channels=[192, 384, 768, 1536],
         out_channels=256,
         num_outs=5),
     roi_head=dict(
@@ -100,23 +95,26 @@ img_norm_cfg = dict(
 
 
 data = dict(
-    # samples_per_gpu=2,
+    samples_per_gpu=2,
     # train=dict(pipeline=train_pipeline)
     )
 # optimizer
 optimizer = dict(
     _delete_=True, type='AdamW', lr=0.0001 * 2, weight_decay=0.05,
     constructor='CustomLayerDecayOptimizerConstructor',
-    paramwise_cfg=dict(num_layers=50, layer_decay_rate=0.90,
-                       depths=[6, 6, 32, 6], offset_lr_scale=0.01))
+    paramwise_cfg=dict(num_layers=39, layer_decay_rate=0.90,
+                       depths=[5, 5, 24, 5], offset_lr_scale=0.01))
 optimizer_config = dict(grad_clip=None)
 # fp16 = dict(loss_scale=dict(init_scale=512))
 evaluation = dict(interval=999, metric='bbox')
-load_from = LIB_ROOT_DIR + '/work_dirs/cascade_mask_internimage_h_fpn_100e_coco_nwd/latest.pth'
+load_from = LIB_ROOT_DIR + '/work_dirs/cascade_mask_internimage_xl_fpn_finetune_nwd/latest.pth'
 checkpoint_config = dict(
-    interval=3,
-    max_keep_ckpts=3,
+    interval=2,
+    max_keep_ckpts=5,
     save_last=True,
+)
+log_config = dict(
+    interval=10,
 )
 resume_from = None
 custom_hooks = [
@@ -126,19 +124,19 @@ custom_hooks = [
         momentum=0.0001,
         priority=49)
 ]
-runner = dict(max_epochs=40)
+runner = dict(max_epochs=20)
 
 train_pipeline = [
     dict(type='LoadImageFromFile', to_float32=True, color_type='color'),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
-    dict(type='RandomCrop', crop_size=(512, 512), allow_negative_crop=True),
+    dict(type='RandomCrop', crop_size=(800, 800), allow_negative_crop=True),
     dict(
         type='PhotoMetricDistortion',
         brightness_delta=32,
         contrast_range=(0.5, 1.5),
         saturation_range=(0.5, 1.5),
         hue_delta=18),
-    dict(type='Resize', img_scale=(512, 512), keep_ratio=True),
+    dict(type='Resize', img_scale=(800, 800), keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='DefaultFormatBundle'),
@@ -146,7 +144,7 @@ train_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=2,
+    samples_per_gpu=4,
     train=dict(
         ann_file=data_root + 'mva2023_sod4bird_train/annotations/merged_train.json',
         img_prefix=data_root + 'mva2023_sod4bird_train/images/',
