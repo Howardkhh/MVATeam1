@@ -1,4 +1,4 @@
-from ensemble_boxes import weighted_boxes_fusion, soft_nms
+from ensemble_boxes_torch import weighted_boxes_fusion, soft_nms
 import json
 import numpy as np
 import argparse
