@@ -57,24 +57,24 @@ Please make sure that the files are in the following format:
 MVATeam1
 ├── configs
 ├── data {only mva2023_sod4bird_private_test folder is needed for inferencing}
-│	├── birds
-│	│   ├── BirdsFlying_1.png
-│	│   ├── BirdsFlying_2.png
-│	│   └── ...
-│	├── drone2021
-│	│   ├── annotations
-│	│   │   └── private_test_coco_empty_ann.json
-│	│   └── images
-│	│       └── ...
-│	├── mva2023_sod4bird_private_test
-│	│   ├── annotations
-│	│   └── images
-│	├── mva2023_sod4bird_pub_test
-│	│   ├── annotations
-│	│   └── images
-│	└── mva2023_sod4bird_train
-│	    ├── annotations
-│	    └── images
+│   ├── birds
+│   │   ├── BirdsFlying_1.png
+│   │   ├── BirdsFlying_2.png
+│   │   └── ...
+│   ├── drone2021
+│   │   ├── annotations
+│   │   │   └── private_test_coco_empty_ann.json
+│   │   └── images
+│   │       └── ...
+│   ├── mva2023_sod4bird_private_test
+│   │   ├── annotations
+│   │   └── images
+│   ├── mva2023_sod4bird_pub_test
+│   │   ├── annotations
+│   │   └── images
+│   └── mva2023_sod4bird_train
+│       ├── annotations
+│       └── images
 ├── ensemble
 ├── ...
 ├── final
