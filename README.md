@@ -42,7 +42,7 @@ A single folder named `final` should be downloaded to the root of our repository
 
 ### 2.5 (Optional) Download our data
 
-We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please see class: MVAPasteBirds in MVATeam1/mmdet/datasets/pipelines/transforms.py . It can be downloaded by the following commands:
+We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded by the following commands:
 
 ```bash
 cd data
