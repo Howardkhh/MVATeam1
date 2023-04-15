@@ -81,7 +81,7 @@ class WeightCNN(nn.Module):
 def prepare_data():
     path2data="./data/mva2023_sod4bird_train/images"
     # path2data="/home/andrea/Desktop/work/Lab/SODForBirds/MVA2023BirdsDetection/data/mva2023_sod4bird_train/images"
-    path2json="/data/mva2023_sod4bird_train/annotations/split_train_coco.json"
+    path2json="./data/mva2023_sod4bird_train/annotations/split_train_coco.json"
     # path2json="/home/andrea/Desktop/work/Lab/SODForBirds/MVA2023BirdsDetection/data/mva2023_sod4bird_train/annotations/split_train_coco.json"
     coco_train = dset.CocoDetection(root = path2data, annFile = path2json)
     train_loader = DataLoader(
