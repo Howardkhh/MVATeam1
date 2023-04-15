@@ -1,3 +1,4 @@
+# Execution
 ### 1. Environment Preparation (MVATeam1)
 
 Our inference environment is a docker image. First, please clone our GitHub repository:
@@ -40,6 +41,8 @@ gdown --folder https://drive.google.com/drive/folders/1PNZTkjAv3S3JoQTEngr7aWoLV
 A single folder named `final` should be downloaded to the root of our repository. 
 
 ### 2.5 (Optional) Download our data
+
+We use an auxiliary dataset ([https://www.kaggle.com/datasets/nelyg8002000/birds-flying](https://www.kaggle.com/datasets/nelyg8002000/birds-flying)) to augment our data. Please download the images from our google drive. For detailed usage, please see class: MVAPasteBirds in MVATeam1/mmdet/datasets/pipelines/transforms.py .
 
 ```python
 cd data
