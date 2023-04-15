@@ -1,4 +1,3 @@
-centernet_slicing_01.json
 cascade_paste.json
 results_interImage.json
 cascade_rcnn_sticker_61_2.json
