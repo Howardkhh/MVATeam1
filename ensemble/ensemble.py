@@ -50,6 +50,9 @@ def ensemble(config_file, output_file, method, weights=[2,4,5,6,8], iou_thr=0.5,
         files = f.read().splitlines()
     f.close()
     # print(files)
+    
+    files = [item for item in files if not item.startswith("#")]
+
     for cur_file in files:
         json_data = []
         print(cur_file)
@@ -106,3 +109,12 @@ args = parser.parse_args()
 
 
 ensemble('config.txt', 'results.json', weights=[2,3,5,5,6,8,7,10], method=args.method)
+# ensemble('config.txt', 'results.json', weights=[
+#     2,
+#     4,
+#     5,
+#     6,
+#     8,
+#     7,
+#     10,
+#     ], method=args.method)

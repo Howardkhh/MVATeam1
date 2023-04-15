@@ -153,9 +153,17 @@ def sahi_validation(args):
     dataset = test_loader.dataset
     rank, size = get_dist_rank()
 
+    start = time.time()
+
     for batch_idx, batch in enumerate(test_loader):
+        # print(f"batch={batch})
         batch = batch[0]
-        print(f"Batch {batch_idx+1}/{len(test_loader)}", end='\r')
+        if rank == 0:
+            end = time.time()
+            hours, rem = divmod(end-start, 3600)
+            minutes, seconds = divmod(rem, 60)
+            sys.stderr.write("Batch {}/{} elapsed time:{:0>2}h:{:0>2}m:{:05.2f}\n".format(batch_idx+1, len(test_loader), int(hours),int(minutes),seconds))
+            # print(f"Batch {batch_idx+1}/{len(test_loader)}  elapsed time:", end='\r')
         results_batch = []
         with torch.no_grad():
             for imgId in batch:
@@ -183,7 +191,7 @@ def sahi_validation(args):
         return
 
     # gather
-    print(results)
+    # print(results)
     results = collect_results_gpu(results, len(dataset))
     if rank == 0:
         with open("work_dirs/" + args.out_file_name, "w") as f:

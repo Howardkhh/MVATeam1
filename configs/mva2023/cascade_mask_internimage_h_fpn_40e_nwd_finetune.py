@@ -145,6 +145,25 @@ train_pipeline = [
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'])
 ]
 
+test_pipeline = [
+    dict(type='LoadImageFromFile', to_float32=True),
+    dict(
+        type='MultiScaleFlipAug',
+        scale_factor=1.0,
+        flip=False,
+        transforms=[
+            dict(type='RandomFlip'),
+            dict(type='Normalize', **img_norm_cfg),
+            dict(type='DefaultFormatBundle'),
+            dict(
+                type='Collect',
+                meta_keys=('filename', 'ori_shape', 'img_shape',
+                           'scale_factor', 'flip', 'flip_direction',
+                           'img_norm_cfg'),
+                keys=['img'])
+        ])
+]
+
 data = dict(
     samples_per_gpu=2,
     train=dict(
@@ -159,5 +178,6 @@ data = dict(
     test=dict(
         ann_file=data_root + 'mva2023_sod4bird_train/annotations/split_val_coco.json',
         img_prefix=data_root + 'mva2023_sod4bird_train/images/',
+        pipeline=test_pipeline
     )
 )
