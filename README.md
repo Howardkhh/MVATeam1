@@ -161,6 +161,8 @@ python ensemble/ensemble.py
 zip results.zip results.json
 ```
 
+**The final result to be evaluated is the file `results.zip`!**
+
 # Trouble Shooting
 If you encounter 
 ```KeyError: "CenterNet: 'InternImage is not in the models registry'"```\
