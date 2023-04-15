@@ -1,5 +1,6 @@
 IMAGE = samuel21119/mva2023_cu115_team1
 DATA = $(shell readlink -f data)
+SHMEM_SIZE = 32G
 
 build:
 	docker build -t $(IMAGE) .
@@ -9,6 +10,7 @@ start:
 		-v $(PWD):/root/MVATeam1 \
 		-v $(DATA):/root/MVATeam1/data \
 		--gpus all \
+		--shm-size $(SHMEM_SIZE) \
 		$(IMAGE)
 
 post_install:
