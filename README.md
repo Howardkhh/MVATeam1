@@ -116,8 +116,6 @@ mv work_dirs/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.json submit/c
 
 # Ensemble
 ```shell
-################################################################
-
 # 1. List models we want to ensemble in config.txt.
 
 # 2. Set weights for the corresponding models in ensemble.py
@@ -131,10 +129,11 @@ python ensemble.py --method wbf
 # To use the Soft NMS ensembling method
 python ensemble.py --method snms
 
+# Note that the default option is wbf
+python ensemble.py 
+
 # 4. Compress the results.json to results.zip and we're done.
 zip results.zip results.json
-
-################################################################
 ```
 
 # Trouble Shooting
