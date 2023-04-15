@@ -1,4 +1,4 @@
-from ensemble_boxes import weighted_boxes_fusion, soft_nms
+from ensemble_boxes_torch  import weighted_boxes_fusion, soft_nms
 import json
 import numpy as np
 import argparse
@@ -50,6 +50,9 @@ def ensemble(config_file, output_file, method, weights=[2,4,5,6,8], iou_thr=0.5,
         files = f.read().splitlines()
     f.close()
     # print(files)
+    
+    files = [item for item in files if not item.startswith("#")]
+
     for cur_file in files:
         json_data = []
         print(cur_file)
@@ -104,4 +107,12 @@ parser = argparse.ArgumentParser(description='Ensemble Choices')
 parser.add_argument("--method", help="Please select wbf or snms", choices=['wbf', 'snms'], default='wbf')
 args = parser.parse_args()
 
-ensemble('config.txt', 'results.json', weights=[2,4,5,6,8,7,10], method=args.method)
+ensemble('config.txt', 'results.json', weights=[
+    2,
+    4,
+    5,
+    6,
+    8,
+    7,
+    10,
+    ], method=args.method)
