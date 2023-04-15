@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from ensemble_boxes_torch  import weighted_boxes_fusion, soft_nms
-=======
 from ensemble_boxes_torch import weighted_boxes_fusion, soft_nms
->>>>>>> 9d5907d0cc9c5aa4113e923f90de66820c424e31
 import json
 import numpy as np
 import argparse
