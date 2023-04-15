@@ -109,12 +109,3 @@ args = parser.parse_args()
 
 
 ensemble('config.txt', 'results.json', weights=[2,3,5,6,8,7,10,12,12,13], method=args.method)
-# ensemble('config.txt', 'results.json', weights=[
-#     2,
-#     4,
-#     5,
-#     6,
-#     8,
-#     7,
-#     10,
-#     ], method=args.method)
