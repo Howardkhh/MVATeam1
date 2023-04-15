@@ -3,8 +3,14 @@ MAINTAINER samuel21119
 
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
+ENV OMP_NUM_THREADS=4
+ENV MKL_NUM_THREADS=4
 
-RUN apt update -y && apt install -y sudo vim wget gcc && rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt update -y \
+    && apt-get install -y tzdata && ln -fs /usr/share/zoneinfo/Asia/Taiwan /etc/localtime && dpkg-reconfigure -f noninteractive tzdata \
+    && apt install -y sudo vim wget gcc libgl1-mesa-glx libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
