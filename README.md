@@ -42,9 +42,9 @@ A single folder named `final` should be downloaded to the root of our repository
 
 ### 2.5 (Optional) Download our data
 
-We use an auxiliary dataset ([https://www.kaggle.com/datasets/nelyg8002000/birds-flying](https://www.kaggle.com/datasets/nelyg8002000/birds-flying)) to augment our data. Please download the images from our google drive. For detailed usage, please see class: MVAPasteBirds in MVATeam1/mmdet/datasets/pipelines/transforms.py .
+We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please see class: MVAPasteBirds in MVATeam1/mmdet/datasets/pipelines/transforms.py . It can be downloaded by the following commands:
 
-```python
+```bash
 cd data
 gdown https://drive.google.com/u/0/uc?id=1MEk_YL9rKARC6qRno2ONsqO2QHKJO-Tr&export=download
 unzip birds.zip
@@ -57,24 +57,24 @@ Please make sure that the files are in the following format:
 MVATeam1
 ├── configs
 ├── data {only mva2023_sod4bird_private_test folder is needed for inferencing}
-│		├── birds
-│		│   ├── BirdsFlying_1.png
-│		│   ├── BirdsFlying_2.png
-│		│   └── ...
-│		├── drone2021
-│		│   ├── annotations
-│		│   │   └── private_test_coco_empty_ann.json
-│		│   └── images
-│		│       ├── ...
-│		├── mva2023_sod4bird_private_test
-│		│   ├── annotations
-│		│   └── images
-│		├── mva2023_sod4bird_pub_test
-│		│   ├── annotations
-│		│   └── images
-│		└── mva2023_sod4bird_train
-│		    ├── annotations
-│		    └── images
+│	├── birds
+│	│   ├── BirdsFlying_1.png
+│	│   ├── BirdsFlying_2.png
+│	│   └── ...
+│	├── drone2021
+│	│   ├── annotations
+│	│   │   └── private_test_coco_empty_ann.json
+│	│   └── images
+│	│       └── ...
+│	├── mva2023_sod4bird_private_test
+│	│   ├── annotations
+│	│   └── images
+│	├── mva2023_sod4bird_pub_test
+│	│   ├── annotations
+│	│   └── images
+│	└── mva2023_sod4bird_train
+│	    ├── annotations
+│	    └── images
 ├── ensemble
 ├── ...
 ├── final
@@ -86,7 +86,7 @@ MVATeam1
 
 ### 3. Inference
 
-```python
+```bash
 # cascade_original.json
 python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
 
