@@ -13,6 +13,7 @@ train_pipeline = [
         type='MVARandomCrop',
         crop_size=(800,800),
         must_include_bbox_ratio=0.), 
+    dict(type='MVACopyPaste'),
     dict(
         type='PhotoMetricDistortion',
         brightness_delta=32,
@@ -39,15 +40,15 @@ test_pipeline = [
             dict(type='DefaultFormatBundle'),
             dict(
                 type='Collect',
-                meta_keys=('filename', 'ori_shape', 'img_shape', 'pad_shape',
+                meta_keys=('filename', 'ori_shape', 'img_shape',
                            'scale_factor', 'flip', 'flip_direction',
-                           'img_norm_cfg', 'border'),
+                           'img_norm_cfg'),
                 keys=['img'])
         ])
 ]
 
 data = dict(
-    samples_per_gpu=16,
+    samples_per_gpu=8,
     workers_per_gpu=4,
     train=dict(
         type=dataset_type,

@@ -176,8 +176,8 @@ data = dict(
         img_prefix=data_root + 'mva2023_sod4bird_train/images/',
     ),
     test=dict(
-        ann_file=data_root + 'mva2023_sod4bird_train/annotations/split_val_coco.json',
-        img_prefix=data_root + 'mva2023_sod4bird_train/images/',
+        ann_file=data_root + 'mva2023_sod4bird_pub_test/annotations/public_test_coco_empty_ann.json',
+        img_prefix=data_root + 'mva2023_sod4bird_pub_test/images/',
         pipeline=test_pipeline
     )
 )
