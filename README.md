@@ -126,10 +126,10 @@ ensemble('config.txt', 'results.json', weights=[2,4,5,6,8])
 # 3. Execute ensemble.py with argument --method to generate results.json
 # The argument --method has choices ['wbf', 'snms] with 'wbf' being the default option
 # To use the weighted boxes fusion ensembling method
-python ensemble_wbf.py --method wbf
+python ensemble.py --method wbf
 
 # To use the Soft NMS ensembling method
-python ensemble_wbf.py --method snms
+python ensemble.py --method snms
 
 # 4. Compress the results.json to results.zip and we're done.
 zip results.zip results.json
