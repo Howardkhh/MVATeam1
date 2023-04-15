@@ -5,3 +5,6 @@ cascade_rcnn_sticker_61_2.json
 cascade_original.json
 cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
 cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
+intern_h_public_nosahi.json
+intern_xl_public_nosahi_randflip.json
+intern_h_public_nosahi_randflip.json
