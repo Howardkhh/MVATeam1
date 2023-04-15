@@ -1,90 +1,89 @@
-# Installation
-```shell
-# requires cuda 11.5 and gcc10
+### 1. Environment Preparation (MVATeam1)
 
-conda create -n mva_team1 -c conda-forge -y python==3.10
-conda activate mva_team1
-pip3 install torch==1.11.0+cu115 torchvision==0.12.0+cu115  -f https://download.pytorch.org/whl/torch_stable.html
-pip install openmim
-pip install mmcv-full==1.6.0 -f https://download.openmmlab.com/mmcv/dist/cu115/torch1.11/index.html
-pip install timm opencv-python termcolor yacs pyyaml scipy
+Our inference environment is a docker image. First, please clone our GitHub repository:
 
-cd ./ops_dcnv3
-sh ./make.sh
-# unit test (should see all checking is True)
-python test.py
+```bash
+git clone https://github.com/Howardkhh/MVATeam1.git
+cd MVATeam1
+```
 
+Before starting the docker container, the data folder should be linked to our repository:
+
+```bash
+ln -s <absolute path to the data folder> ./data
+```
+
+The docker container can be launched by:
+
+```bash
+make start
+```
+
+The docker image is built with the `Dockerfile` within the root of our repository, and further uploaded to the Dockerhub. Invoking `make start` will also download the image.
+
+As inferencing the model by MMDetection requires enough shared memory space (`/dev/shm`), we set the Docker container having 32GB of shared memory space. The size could be changed by modifying the `Makefile`.
+
+After launching the Docker container, the default directory should be the `MVATeam1` folder. Next, please install the MMDetection development package inside the container by:
+
+```bash
+make post_install
+```
+
+### 2. Download model weights
+
+The size of our model is too large to be included in the Git repository. Please download the pre-trained weights from our google drive:
+
+```bash
+gdown --folder https://drive.google.com/drive/folders/1PNZTkjAv3S3JoQTEngr7aWoLVg76IOIi?usp=share_link
+```
+
+A single folder named `final` should be downloaded to the root of our repository. 
+
+### 2.5 (Optional) Download our data
+
+```python
+cd data
+gdown https://drive.google.com/u/0/uc?id=1MEk_YL9rKARC6qRno2ONsqO2QHKJO-Tr&export=download
+unzip birds.zip
+rm birds.zip
 cd ..
-pip install -v -e .
-pip install -r requirements/sahi.txt
-
-```
-# Dataset
-The dataset should be the same as baseline
-```shell
-data
- ├ drone2021
- ├ mva2023_sod4bird_train
- ├ mva2023_sod4bird_pub_test
- └ mva2023_sod4bird_private_test
 ```
 
-# Training
-## Centernet Baseline
-```shell
-# centernet r18
-python3 tools/train.py  configs/mva2023_baseline/centernet_resnet18_140e_coco.py
-python3 tools/train.py  configs/mva2023_baseline/centernet_resnet18_140e_coco_finetune.py
-python3 hard_neg_example_tools/test_hard_neg_example.py \
-    --config configs/mva2023_baseline/centernet_resnet18_140e_coco_sample_hard_negative.py \
-    --checkpoint work_dirs/centernet_resnet18_140e_coco_finetune/latest.pth \
-    --launcher none \
-    --generate-hard-negative-samples True \
-    --hard-negative-file work_dirs/centernet_resnet18_140e_coco_finetune/train_coco_hard_negative.json \
-    --hard-negative-config num_max_det=10 pos_iou_thr=1e-5 score_thd=0.05 nms_thd=0.05
-python3 tools/train.py configs/mva2023_baseline/centernet_resnet18_140e_coco_hard_negative_training.py
-
-# centernet r50
-python3 tools/train.py  configs/mva2023_baseline/centernet_resnet50_140e_coco.py
-python3 tools/train.py  configs/mva2023_baseline/centernet_resnet50_140e_coco_finetune.py
-python3 hard_neg_example_tools/test_hard_neg_example.py \
-    --config configs/mva2023_baseline/centernet_resnet50_140e_coco_sample_hard_negative.py \
-    --checkpoint work_dirs/centernet_resnet50_140e_coco_finetune/latest.pth \
-    --launcher none \
-    --generate-hard-negative-samples True \
-    --hard-negative-file work_dirs/centernet_resnet50_140e_coco_finetune/train_coco_hard_negative.json \
-    --hard-negative-config num_max_det=10 pos_iou_thr=1e-5 score_thd=0.05 nms_thd=0.05
-python3 tools/train.py configs/mva2023_baseline/centernet_resnet50_140e_coco_hard_negative_training.py
-
-# centernet intern image xl
-python3 tools/train.py  configs/mva2023_baseline/centernet_internimage_xl_140e_coco.py
-python3 tools/train.py  configs/mva2023_baseline/centernet_internimage_xl_140e_coco_finetune.py
-python3 hard_neg_example_tools/test_hard_neg_example.py \
-    --config configs/mva2023_baseline/centernet_internimage_xl_140e_coco_sample_hard_negative.py \
-    --checkpoint work_dirs/centernet_internimage_xl_140e_coco_finetune/latest.pth \
-    --launcher none \
-    --generate-hard-negative-samples True \
-    --hard-negative-file work_dirs/centernet_internimage_xl_140e_coco_finetune/train_coco_hard_negative.json \
-    --hard-negative-config num_max_det=10 pos_iou_thr=1e-5 score_thd=0.05 nms_thd=0.05
-python3 tools/train.py configs/mva2023_baseline/centernet_internimage_xl_140e_coco_hard_negative_training.py
+Please make sure that the files are in the following format:
 ```
-## Cascade RCNN
-```shell
-# Cascade RCNN r18
-python3 tools/train.py  configs/mva2023/cascade_rcnn_r18_fpn_140e_coco_nwd.py
-python3 tools/train.py  configs/mva2023/cascade_rcnn_r18_fpn_20e_coco_nwd_finetune.py
-
-# Cascade RCNN r50
-python3 tools/train.py  configs/mva2023/cascade_rcnn_r50_fpn_140e_coco_nwd.py
-python3 tools/train.py  configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py
-
-# Cascade intern image xl
-python3 tools/train.py  configs/mva2023/cascade_rcnn_internimage_xl_fpn_140e_coco_nwd.py
-python3 tools/train.py  configs/mva2023/cascade_rcnn_internimage_xl_fpn_20e_coco_nwd_finetune.py
+MVATeam1
+├── configs
+├── data {only mva2023_sod4bird_private_test folder is needed for inferencing}
+│		├── birds
+│		│   ├── BirdsFlying_1.png
+│		│   ├── BirdsFlying_2.png
+│		│   └── ...
+│		├── drone2021
+│		│   ├── annotations
+│		│   │   └── private_test_coco_empty_ann.json
+│		│   └── images
+│		│       ├── ...
+│		├── mva2023_sod4bird_private_test
+│		│   ├── annotations
+│		│   └── images
+│		├── mva2023_sod4bird_pub_test
+│		│   ├── annotations
+│		│   └── images
+│		└── mva2023_sod4bird_train
+│		    ├── annotations
+│		    └── images
+├── ensemble
+├── ...
+├── final
+│   ├── baseline_Mcenternet
+│   ├── ...
+├── ...
+├── setup.py
 ```
 
-# Inferencing
-```shell
+### 3. Inference
+
+```python
 # cascade_original.json
 python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
 
@@ -120,14 +119,14 @@ python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_f
 
 # cascade_rcnn_sticker_61_2.json
 python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py \ 
-				final/cascade_nwd_paste_howard/latest.pth \ 
+				final/cascade_nwd_paste_howard/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_rcnn_sticker_61_2.json
 
 # cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
 python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.py \ 
-				final/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train/latest.pth \ 
+				final/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
@@ -139,7 +138,11 @@ python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 				--crop-size 512 \
 		    --out-file-name cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
+```
 
+### 4. Ensemble
+
+```bash
 mv cascade_original.bbox.json ensemble/cascade_original.json
 mv intern_h_public_nosahi.bbox.json ensemble/intern_h_public_nosahi.json
 mv intern_xl_public_nosahi_randflip.bbox.json ensemble/intern_xl_public_nosahi_randflip.json
@@ -151,28 +154,7 @@ mv cascade_rcnn_sticker_61_2.json ensemble/cascade_rcnn_sticker_61_2.json
 mv cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json ensemble/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
 mv cascade_mask_internimage_h_fpn_40e_nwd_finetune.json ensemble/cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
-cd ensemble
-```
-
-# Ensemble
-```shell
-# 1. List models we want to ensemble in config.txt.
-
-# 2. Set weights for the corresponding models in ensemble.py
-ensemble('config.txt', 'results.json', weights=[2,3,5,6,8,7,10,12,12,13], method=args.method)
-
-# 3. Execute ensemble.py with argument --method to generate results.json
-# The argument --method has choices ['wbf', 'snms] with 'wbf' being the default option
-# To use the weighted boxes fusion ensembling method
-python ensemble.py --method wbf
-
-# To use the Soft NMS ensembling method
-python ensemble.py --method snms
-
-# Note that the default option is wbf
-python ensemble.py 
-
-# 4. Compress the results.json to results.zip and we're done.
+python ensemble/ensemble.py
 zip results.zip results.json
 ```
 
