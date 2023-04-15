@@ -63,11 +63,12 @@ MVATeam1
 │   │   └── ...
 │   ├── drone2021
 │   │   ├── annotations
-│   │   │   └── private_test_coco_empty_ann.json
+│   │   │   └── ...
 │   │   └── images
 │   │       └── ...
 │   ├── mva2023_sod4bird_private_test
 │   │   ├── annotations
+│   │   │   └── private_test_coco_empty_ann.json
 │   │   └── images
 │   ├── mva2023_sod4bird_pub_test
 │   │   ├── annotations
