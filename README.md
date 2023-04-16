@@ -108,7 +108,7 @@ python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_fine
 python tools/test.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py final/internimage_xl_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_xl_public_nosahi_randflip
 
 # intern_h_public_nosahi_randflip.json
-python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
+python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune_tta_randflip.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
 
 # centernet_slicing_01.json
 python tools/sahi_evaluation.py configs/mva2023_baseline/centernet_resnet18_140e_coco_inference.py \
@@ -133,7 +133,7 @@ python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_f
 
 # cascade_rcnn_sticker_61_2.json
 python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py \
-			final/cascade_nwd_paste_howard/latest.pth \
+			final/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_rcnn_sticker_61_2.json
