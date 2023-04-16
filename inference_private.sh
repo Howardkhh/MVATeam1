@@ -1,40 +1,40 @@
 start=`date +%s`
-# >&2 echo "---------------------" 
-# >&2 echo "cascade_original.json" 
-# >&2 echo "---------------------" 
-# echo "---------------------" 
-# echo "cascade_original.json" 
-# echo "---------------------" 
+>&2 echo "---------------------" 
+>&2 echo "cascade_original.json" 
+>&2 echo "---------------------" 
+echo "---------------------" 
+echo "cascade_original.json" 
+echo "---------------------" 
 
-# # cascade_original.json
-# python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
+# cascade_original.json
+python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
 
-# >&2 echo "---------------------" 
-# >&2 echo "intern_h_public_nosahi.json" 
-# >&2 echo "---------------------" 
-# echo "---------------------" 
-# echo "intern_h_public_nosahi.json" 
-# echo "---------------------" 
-# # intern_h_public_nosahi.json
-# python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi
+>&2 echo "---------------------" 
+>&2 echo "intern_h_public_nosahi.json" 
+>&2 echo "---------------------" 
+echo "---------------------" 
+echo "intern_h_public_nosahi.json" 
+echo "---------------------" 
+# intern_h_public_nosahi.json
+python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi
 
-# >&2 echo "---------------------" 
-# >&2 echo "intern_xl_public_nosahi_randflip.json" 
-# >&2 echo "---------------------" 
-# echo "---------------------" 
-# echo "intern_xl_public_nosahi_randflip.json" 
-# echo "---------------------" 
-# # intern_xl_public_nosahi_randflip.json
-# python tools/test.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py final/internimage_xl_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_xl_public_nosahi_randflip
+>&2 echo "---------------------" 
+>&2 echo "intern_xl_public_nosahi_randflip.json" 
+>&2 echo "---------------------" 
+echo "---------------------" 
+echo "intern_xl_public_nosahi_randflip.json" 
+echo "---------------------" 
+# intern_xl_public_nosahi_randflip.json
+python tools/test.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py final/internimage_xl_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_xl_public_nosahi_randflip
 
-# >&2 echo "---------------------" 
-# >&2 echo "intern_h_public_nosahi_randflip.json" 
-# >&2 echo "---------------------" 
-# echo "---------------------" 
-# echo "intern_h_public_nosahi_randflip.json" 
-# echo "---------------------" 
-# # intern_h_public_nosahi_randflip.json
-# python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
+>&2 echo "---------------------" 
+>&2 echo "intern_h_public_nosahi_randflip.json" 
+>&2 echo "---------------------" 
+echo "---------------------" 
+echo "intern_h_public_nosahi_randflip.json" 
+echo "---------------------" 
+# intern_h_public_nosahi_randflip.json
+python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
 
 >&2 echo "---------------------" 
 >&2 echo "centernet_slicing_01.json" 
