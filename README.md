@@ -86,7 +86,11 @@ MVATeam1
 ```
 
 ### 3. Inference
-
+A bash script for step 3 and 4 has been prepared:
+```bash
+bash inference_private.sh
+```
+where the script executes the following commands.
 ```bash
 # cascade_original.json
 python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
@@ -105,42 +109,42 @@ python tools/sahi_evaluation.py configs/mva2023_baseline/centernet_resnet18_140e
 			final/baseline_centernet/latest.pth \
 			data/mva2023_sod4bird_private_test/images/ \
 			data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
-			-out-file-name centernet_slicing_01.json
+			--out-file-name centernet_slicing_01.json
 
 #results_interImage.json
-python tools/sahi_evaluation.py config/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \ 
-				final/internimage_xl_nwd/latest.pth \
+python tools/sahi_evaluation.py config/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
+			final/internimage_xl_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name results_interImage.json
 
 # cascade_nwd_paste_howard_0604.json
-python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_20e_coco_finetune_nwd_paste.py \ 
-				final/cascade_nwd_paste_howard/latest.pth \
+python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_20e_coco_finetune_nwd_paste.py \
+			final/cascade_nwd_paste_howard/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_nwd_paste_howard_0604.json
 
 # cascade_rcnn_sticker_61_2.json
-python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py \ 
-				final/cascade_nwd_paste_howard/latest.pth \
+python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py \
+			final/cascade_nwd_paste_howard/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_rcnn_sticker_61_2.json
 
 # cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
-python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.py \ 
-				final/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train/latest.pth \
+python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.py \
+			final/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
 
 # cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
-python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py \ 
-				final/internimage_h_nwd/latest.pth \
+python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py \
+			final/internimage_h_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
-				--crop-size 512 \
+			--crop-size 512 \
 		    --out-file-name cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 ```
 
@@ -159,10 +163,10 @@ mv cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json ensemble/c
 mv cascade_mask_internimage_h_fpn_40e_nwd_finetune.json ensemble/cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
 python ensemble/ensemble.py
-zip results.zip results.json
+zip results_team1.zip results.json
 ```
 
-**The final result to be evaluated is the file `results.zip`!**
+**The final result to be evaluated is the file `results_team1.zip`!**
 
 # Trouble Shooting
 If you encounter 

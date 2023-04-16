@@ -1,40 +1,40 @@
 start=`date +%s`
->&2 echo "---------------------" 
->&2 echo "cascade_original.json" 
->&2 echo "---------------------" 
-echo "---------------------" 
-echo "cascade_original.json" 
-echo "---------------------" 
+# >&2 echo "---------------------" 
+# >&2 echo "cascade_original.json" 
+# >&2 echo "---------------------" 
+# echo "---------------------" 
+# echo "cascade_original.json" 
+# echo "---------------------" 
 
-# cascade_original.json
-python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
+# # cascade_original.json
+# python tools/test.py configs/mva2023/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune.py final/cascade_rcnn_r50_fpn_40e_coco_nwd_finetune/latest.pth --format-only --eval-options jsonfile_prefix=cascade_original
 
->&2 echo "---------------------" 
->&2 echo "intern_h_public_nosahi.json" 
->&2 echo "---------------------" 
-echo "---------------------" 
-echo "intern_h_public_nosahi.json" 
-echo "---------------------" 
-# intern_h_public_nosahi.json
-python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi
+# >&2 echo "---------------------" 
+# >&2 echo "intern_h_public_nosahi.json" 
+# >&2 echo "---------------------" 
+# echo "---------------------" 
+# echo "intern_h_public_nosahi.json" 
+# echo "---------------------" 
+# # intern_h_public_nosahi.json
+# python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi
 
->&2 echo "---------------------" 
->&2 echo "intern_xl_public_nosahi_randflip.json" 
->&2 echo "---------------------" 
-echo "---------------------" 
-echo "intern_xl_public_nosahi_randflip.json" 
-echo "---------------------" 
-# intern_xl_public_nosahi_randflip.json
-python tools/test.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py final/internimage_xl_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_xl_public_nosahi_randflip
+# >&2 echo "---------------------" 
+# >&2 echo "intern_xl_public_nosahi_randflip.json" 
+# >&2 echo "---------------------" 
+# echo "---------------------" 
+# echo "intern_xl_public_nosahi_randflip.json" 
+# echo "---------------------" 
+# # intern_xl_public_nosahi_randflip.json
+# python tools/test.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py final/internimage_xl_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_xl_public_nosahi_randflip
 
->&2 echo "---------------------" 
->&2 echo "intern_h_public_nosahi_randflip.json" 
->&2 echo "---------------------" 
-echo "---------------------" 
-echo "intern_h_public_nosahi_randflip.json" 
-echo "---------------------" 
-# intern_h_public_nosahi_randflip.json
-python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
+# >&2 echo "---------------------" 
+# >&2 echo "intern_h_public_nosahi_randflip.json" 
+# >&2 echo "---------------------" 
+# echo "---------------------" 
+# echo "intern_h_public_nosahi_randflip.json" 
+# echo "---------------------" 
+# # intern_h_public_nosahi_randflip.json
+# python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
 
 >&2 echo "---------------------" 
 >&2 echo "centernet_slicing_01.json" 
@@ -47,7 +47,7 @@ python tools/sahi_evaluation.py configs/mva2023_baseline/centernet_resnet18_140e
 			final/baseline_centernet/latest.pth \
 			data/mva2023_sod4bird_private_test/images/ \
 			data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
-			-out-file-name centernet_slicing_01.json
+			--out-file-name centernet_slicing_01.json
 
 >&2 echo "---------------------" 
 >&2 echo "results_interImage.json" 
@@ -56,8 +56,8 @@ echo "---------------------"
 echo "results_interImage.json" 
 echo "---------------------" 
 #results_interImage.json
-python tools/sahi_evaluation.py config/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \ 
-				final/internimage_xl_nwd/latest.pth \
+python tools/sahi_evaluation.py config/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
+			final/internimage_xl_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name results_interImage.json
@@ -69,7 +69,7 @@ echo "---------------------"
 echo "cascade_nwd_paste_howard_0604.json" 
 echo "---------------------" 
 # cascade_nwd_paste_howard_0604.json
-python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_20e_coco_finetune_nwd_paste.py \ 
+python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_20e_coco_finetune_nwd_paste.py \
 				final/cascade_nwd_paste_howard/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
@@ -82,8 +82,8 @@ echo "---------------------"
 echo "cascade_rcnn_sticker_61_2.json" 
 echo "---------------------" 
 # cascade_rcnn_sticker_61_2.json
-python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py \ 
-				final/cascade_nwd_paste_howard/latest.pth \ ##################################
+python tools/sahi_evaluation.py  configs/cascade_rcnn_mva2023/cascade_rcnn_r50_fpn_40e_coco_finetune_sticker.py \
+			final/cascade_nwd_paste_howard/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_rcnn_sticker_61_2.json
@@ -95,8 +95,8 @@ echo "---------------------"
 echo "cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json" 
 echo "---------------------" 
 # cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
-python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.py \ 
-				final/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train/latest.pth \ #################################
+python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.py \
+			final/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
@@ -108,11 +108,11 @@ echo "---------------------"
 echo "cascade_mask_internimage_h_fpn_40e_nwd_finetune.json" 
 echo "---------------------" 
 # cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
-python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py \ 
-				final/internimage_h_nwd/latest.pth \
+python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune.py \
+			final/internimage_h_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
-				--crop-size 512 \
+			--crop-size 512 \
 		    --out-file-name cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
 
@@ -136,7 +136,7 @@ mv cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json ensemble/c
 mv cascade_mask_internimage_h_fpn_40e_nwd_finetune.json ensemble/cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
 python ensemble.py
-zip results.zip results.json
+zip results_team1.zip results.json
 
 >&2 echo "---------------------" 
 >&2 echo "!!!!!  FINISH  !!!!!" 

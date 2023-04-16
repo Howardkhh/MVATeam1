@@ -15,4 +15,5 @@ start:
 
 post_install:
 	cd ops_dcnv3; sh make.sh
+	pip install -r requirements/sahi.txt
 	pip install -v -e .

@@ -51,7 +51,7 @@ def sahi_validation(args):
     results = []
     for count, imgId in enumerate(test_idx):
         img = coco.loadImgs(imgId)[0]
-        print(f"{count}/{test_N}", end='\r')
+        print(f"{count}/{test_N}", end='\n')
         result = get_sliced_prediction(
             str(pathlib.Path(args.datadir, img['file_name'])),
             detection_model,
