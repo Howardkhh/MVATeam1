@@ -57,7 +57,7 @@ echo "---------------------"
 echo "results_interImage.json" 
 echo "---------------------" 
 #results_interImage.json
-python tools/sahi_evaluation.py config/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
+python tools/sahi_evaluation.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
 			final/internimage_xl_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
