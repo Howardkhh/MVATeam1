@@ -150,6 +150,7 @@ python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_
 
 ### 4. Ensemble
 
+The following commands are also included in the `inference_private.sh`.
 ```bash
 mv cascade_original.bbox.json ensemble/cascade_original.json
 mv intern_h_public_nosahi.bbox.json ensemble/intern_h_public_nosahi.json
