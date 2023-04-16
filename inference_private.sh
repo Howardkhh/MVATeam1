@@ -135,7 +135,7 @@ mv cascade_rcnn_sticker_61_2.json ensemble/cascade_rcnn_sticker_61_2.json
 mv cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json ensemble/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
 mv cascade_mask_internimage_h_fpn_40e_nwd_finetune.json ensemble/cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
-python ensemble.py
+python ensembel/ensemble.py
 zip results_team1.zip results.json
 
 >&2 echo "---------------------" 
