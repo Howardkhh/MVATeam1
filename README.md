@@ -40,6 +40,12 @@ gdown --folder https://drive.google.com/drive/folders/1PNZTkjAv3S3JoQTEngr7aWoLV
 
 A single folder named `final` should be downloaded to the root of our repository. 
 
+In case of the download quota exceeded, we provide another link:
+```bash
+gdown https://drive.google.com/file/d/1ks9KWl76WT6Y-vGPvyDgNi33dAMYjUcY/view?usp=share_link
+tar zxvf final.tar.gz
+```
+
 ### 2.5 (Optional) Download our data
 
 We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded by the following commands:
