@@ -1,3 +1,4 @@
+set -e
 start=`date +%s`
 >&2 echo "---------------------" 
 >&2 echo "cascade_original.json" 

@@ -9,6 +9,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import random
 import time
+import os
 import mmdet_custom  # noqa: F401,F403
 import mmcv_custom  # noqa: F401,F403
 
@@ -51,7 +52,7 @@ def sahi_validation(args):
     results = []
     for count, imgId in enumerate(test_idx):
         img = coco.loadImgs(imgId)[0]
-        print(f"{count}/{test_N}", end='\n')
+        print(f"{count}/{test_N}", end='\r')
         result = get_sliced_prediction(
             str(pathlib.Path(args.datadir, img['file_name'])),
             detection_model,
@@ -67,11 +68,11 @@ def sahi_validation(args):
         print("No Dectected bbox, skipping evaluation!!!!!!!!!!!!!!!!!!!!!!!!")
         return
 
-    with open("work_dirs/" + args.out_file_name, "w") as f:
+    with open(args.out_file_name, "w") as f:
         json.dump(results, f)
     
     if args.num_test > 0:
-        resultsCOCO = coco.loadRes("work_dirs/" + args.out_file_name)
+        resultsCOCO = coco.loadRes(args.out_file_name)
         eval = COCOeval(coco, resultsCOCO, "bbox")
         eval.params.imgIds = test_idx      # set parameters as desired
         eval.evaluate();                # run per image evaluation
