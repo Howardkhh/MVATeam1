@@ -1,4 +1,4 @@
-from ensemble_boxes_torch import weighted_boxes_fusion, soft_nms
+from ensemble_boxes import weighted_boxes_fusion
 import json
 import numpy as np
 import argparse
@@ -91,9 +91,9 @@ def ensemble(config_file, output_file, method, weights=[2,4,5,6,8], iou_thr=0.5,
             if method == 'wbf':
                 pred_bboxes_per_image, pred_score_per_image, pred_label_per_image = \
                     weighted_boxes_fusion( bbox_cmb, score_cmb, label_cmb, weights=weights, iou_thr=iou_thr, skip_box_thr=skip_box_thr)
-            elif method == 'snms':
-                pred_bboxes_per_image, pred_score_per_image, pred_label_per_image = \
-                    soft_nms( bbox_cmb, score_cmb, label_cmb, weights=weights, iou_thr=iou_thr, sigma=sigma, thresh=skip_box_thr)
+            # elif method == 'snms':
+            #     pred_bboxes_per_image, pred_score_per_image, pred_label_per_image = \
+            #         soft_nms( bbox_cmb, score_cmb, label_cmb, weights=weights, iou_thr=iou_thr, sigma=sigma, thresh=skip_box_thr)
         # print(pred_bboxes_per_image)
         print('Current Progress: {} / {}'.format(image_id, test_img_num), end='\r')
         output = bbox_formatting(pred_bboxes_per_image, pred_score_per_image, image_id, output)
