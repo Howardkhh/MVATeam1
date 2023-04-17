@@ -118,7 +118,7 @@ python tools/sahi_evaluation.py configs/mva2023_baseline/centernet_resnet18_140e
 			--out-file-name centernet_slicing_01.json
 
 #results_interImage.json
-python tools/sahi_evaluation.py config/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
+python tools/sahi_evaluation.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
 			final/internimage_xl_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
@@ -169,8 +169,11 @@ mv cascade_rcnn_sticker_61_2.json ensemble/cascade_rcnn_sticker_61_2.json
 mv cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json ensemble/cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json
 mv cascade_mask_internimage_h_fpn_40e_nwd_finetune.json ensemble/cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
-python ensemble/ensemble.py
+pushd ensemble
+python ensemble.py ../data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json
 zip results_team1.zip results.json
+popd
+cp ensemble/results_team1.zip ./
 ```
 
 **The final result to be evaluated is the file `results_team1.zip`!**

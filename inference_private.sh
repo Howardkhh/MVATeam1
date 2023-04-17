@@ -137,7 +137,7 @@ mv cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train.json ensemble/c
 mv cascade_mask_internimage_h_fpn_40e_nwd_finetune.json ensemble/cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 
 pushd ensemble
-python ensemble.py
+python ensemble.py ../data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json
 zip results_team1.zip results.json
 popd
 cp ensemble/results_team1.zip ./
