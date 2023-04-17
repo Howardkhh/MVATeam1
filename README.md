@@ -52,7 +52,7 @@ We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-
 
 ```bash
 cd data
-gdown https://drive.google.com/file/d/1MEk_YL9rKARC6qRno2ONsqO2QHKJO-Tr/view?usp=share_link
+gdown https://drive.google.com/u/0/uc?id=1MEk_YL9rKARC6qRno2ONsqO2QHKJO-Tr&export=download
 unzip birds.zip
 rm birds.zip
 cd ..
