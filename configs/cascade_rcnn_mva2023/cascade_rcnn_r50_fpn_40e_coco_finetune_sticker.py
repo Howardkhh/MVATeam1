@@ -1,5 +1,5 @@
 from set_lib_dir import LIB_ROOT_DIR
-_base_ = ['./cascade_rcnn_r50_fpn_1x_coco.py',
+_base_ = ['./cascade_rcnn_r50_fpn_1x_coco_nwd.py',
     './sod4bird_sticker_dataset.py',
 ]
 # learning policy
