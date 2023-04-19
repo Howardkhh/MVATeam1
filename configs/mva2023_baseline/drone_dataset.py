@@ -34,7 +34,7 @@ test_pipeline = [
     dict(
         type='MultiScaleFlipAug',
         scale_factor=1.0,
-        flip=True,
+        flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
             dict(
