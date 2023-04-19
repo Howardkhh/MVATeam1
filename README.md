@@ -114,8 +114,8 @@ python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_fine
 python tools/test.py configs/mva2023_baseline/centernet_resnet18_140e_coco_inference.py final/baseline_centernet/latest.pth --format-only --eval-options jsonfile_prefix=centernet_slicing_01
 
 #results_interImage.json
-python tools/sahi_evaluation.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
-			final/internimage_xl_nwd/latest.pth \
+python tools/sahi_evaluation.py configs/mva2023/cascade_mask_internimage_xl_fpn_finetune.py \
+			final/internimage_xl_no_nwd/latest.pth \
 		    data/mva2023_sod4bird_private_test/images/ \
 		    data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
 		    --out-file-name results_interImage.json
