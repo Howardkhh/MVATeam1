@@ -35,7 +35,7 @@ make post_install
 The size of our model is too large to be included in the Git repository. Please download the pre-trained weights from our google drive:
 
 ```bash
-gdown --folder https://drive.google.com/drive/folders/1PNZTkjAv3S3JoQTEngr7aWoLVg76IOIi?usp=share_link
+gdown --folder https://drive.google.com/drive/folders/1zNZTGmlRVsPSpxrVwpik17I2w3XLbqDc?usp=share_link
 ```
 
 A single folder named `final` should be downloaded to the root of our repository. 
@@ -52,7 +52,7 @@ We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-
 
 ```bash
 cd data
-gdown https://drive.google.com/u/0/uc?id=1MEk_YL9rKARC6qRno2ONsqO2QHKJO-Tr&export=download
+gdown --fuzzy https://drive.google.com/file/d/1dcPNszz3h7Ntq0G_OfjEzGMwc9OAv7uQ/view?usp=share_link
 unzip birds.zip
 rm birds.zip
 cd ..
