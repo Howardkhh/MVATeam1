@@ -111,12 +111,7 @@ python tools/test.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_fin
 python tools/test.py configs/mva2023/cascade_mask_internimage_h_fpn_40e_nwd_finetune_tta_randflip.py final/internimage_h_nwd/latest.pth --format-only --eval-options jsonfile_prefix=intern_h_public_nosahi_randflip
 
 # centernet_slicing_01.json
-python tools/sahi_evaluation.py configs/mva2023_baseline/centernet_resnet18_140e_coco_inference.py \
-			final/baseline_centernet/latest.pth \
-			data/mva2023_sod4bird_private_test/images/ \
-			data/mva2023_sod4bird_private_test/annotations/private_test_coco_empty_ann.json \
-			--out-file-name centernet_slicing_01.json \
-			--score-threshold 0.1
+python tools/test.py configs/mva2023_baseline/centernet_resnet18_140e_coco_inference.py final/baseline_centernet/latest.pth --format-only --eval-options jsonfile_prefix=centernet_slicing_01
 
 #results_interImage.json
 python tools/sahi_evaluation.py configs/mva2023/cascade_mask_internimage_xl_fpn_40e_nwd_finetune.py \
