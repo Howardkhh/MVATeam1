@@ -46,6 +46,12 @@ gdown https://drive.google.com/u/2/uc?id=1JdmxiYVvQQoZ7LIrMQo4b35IW6XIUzK0&expor
 tar zxvf final.tar.gz
 ```
 
+**Important:** The size of the `final` folder should be 37544300 KB.
+```bash
+du -s final
+37544300        final
+```
+
 ### 2.5 (Optional) Download our data
 
 We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded by the following commands:
