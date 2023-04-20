@@ -23,6 +23,7 @@ def parse_args():
     parser.add_argument('--score-threshold', default=0.3, type=float)
     parser.add_argument('--num-test', default=-1, type=int)
     parser.add_argument('--crop-size', default=800, type=int)
+    parser.add_argument('--overlap-ratio', default=0.1, type=float)
     parser.add_argument('--out-file-name', default="eval_results.json", type=str)
     return parser.parse_args()
 
@@ -58,8 +59,8 @@ def sahi_validation(args):
             detection_model,
             slice_height = args.crop_size,
             slice_width = args.crop_size,
-            overlap_height_ratio = 0.1,
-            overlap_width_ratio = 0.1,
+            overlap_height_ratio = args.overlap_ratio,
+            overlap_width_ratio = args.overlap_ratio,
             # perform_standard_pred=False, # uncomment this line if the whole image size is different
             verbose=0).to_coco_predictions(image_id=imgId)
         results.extend(result)
