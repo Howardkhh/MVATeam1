@@ -46,10 +46,10 @@ gdown https://drive.google.com/u/3/uc?id=1fRW-3CVf3t5EQUjYfh6BQN27VvTRTn9a&expor
 tar zxvf final.tar.gz
 ```
 
-**Important:** The size of the `final` folder should be 37544300 KB.
+**Important:** The size of the `final` folder should be 36 GB.
 ```bash
 du -s final
-37544300        final
+36G        final
 ```
 
 ### 2.5 (Optional) Download our data
