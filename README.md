@@ -48,7 +48,7 @@ tar zxvf final.tar.gz
 
 **Important:** The size of the `final` folder should be 36 GB.
 ```bash
-du -s final
+du -sh final
 36G        final
 ```
 
