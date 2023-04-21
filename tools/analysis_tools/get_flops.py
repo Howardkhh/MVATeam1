@@ -12,6 +12,8 @@ try:
 except ImportError:
     raise ImportError('Please upgrade mmcv to >0.6.2')
 
+import mmdet_custom  # noqa: F401,F403
+import mmcv_custom  # noqa: F401,F403
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
