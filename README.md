@@ -42,7 +42,7 @@ A single folder named `final` should be downloaded to the root of our repository
 
 In case of the download quota exceeded, we provide another link:
 ```bash
-gdown https://drive.google.com/u/3/uc?id=1fRW-3CVf3t5EQUjYfh6BQN27VvTRTn9a&export=download
+gdown 'https://drive.google.com/u/3/uc?id=1fRW-3CVf3t5EQUjYfh6BQN27VvTRTn9a&export=download'
 tar zxvf final.tar.gz
 ```
 
