@@ -1,7 +1,7 @@
 # Execution
 
 ## 0. Hardware Requirement
-Inferencing our model requires at most 20 GB of VRAM. Please make sure that the GPU device has such amount of VRAM, such as RTX 3090, RTX A5000, and V100 32GB. In addition, we have deploy our environment into a docker image, and thus requires the NVIDIA Container Toolkit. The docker image is based on CUDA 11.3; therefore, please make sure that the GPU driver version is at least '465.19.01'.
+Our model requires at most 20 GB of VRAM for inferencing. Please ensure that your GPU device has such amount of VRAM, such as RTX 3090, RTX A5000, and V100 32GB. Additionally, we have deployed our environment into a docker image, which requires the NVIDIA Container Toolkit. The docker image is based on CUDA 11.3; therefore, please ensure that your GPU driver version is at least ‘465.19.01’.
 
 It is recommended to execute our code on V100 32GB or RTX A6000, as we have tested the following scripts and docker images on these devices.
 
