@@ -1,7 +1,13 @@
 # Execution
-### 1. Environment Preparation (MVATeam1)
 
-Our inference environment is a docker image. First, please clone our GitHub repository:
+## 0. Hardware Requirement
+Inferencing our model requires at most 20 GB of VRAM. Please make sure that the GPU device has such amount of VRAM, such as RTX 3090, RTX A5000, and V100 32GB. In addition, we have deploy our environment into a docker image, and thus requires the NVIDIA Container Toolkit. The docker image is based on CUDA 11.3; therefore, please make sure that the GPU driver version is at least '465.19.01'.
+
+It is recommended to execute our code on V100 32GB or RTX A6000, as we have tested the following scripts and docker images on these devices.
+
+## 1. Environment Preparation (MVATeam1)
+
+Please clone our GitHub repository:
 
 ```bash
 git clone https://github.com/Howardkhh/MVATeam1.git
@@ -30,7 +36,7 @@ After launching the Docker container, the default directory should be the `MVATe
 make post_install
 ```
 
-### 2. Download model weights
+## 2. Download model weights
 
 The size of our model is too large to be included in the Git repository. Please download the pre-trained weights from our google drive:
 
@@ -52,7 +58,7 @@ du -sh final
 36G        final
 ```
 
-### 2.5 (Optional) Download our data
+## 2.5 (Optional) Download our data
 
 We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded by the following commands:
 
@@ -97,7 +103,7 @@ MVATeam1
 ├── setup.py
 ```
 
-### 3. Inference
+## 3. Inference
 A bash script for step 3 and 4 has been prepared:
 ```bash
 bash inference_private.sh
@@ -163,7 +169,7 @@ python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_
 		    --out-file-name cascade_mask_internimage_h_fpn_40e_nwd_finetune.json
 ```
 
-### 4. Ensemble
+## 4. Ensemble
 
 The following commands are also included in the `inference_private.sh`.
 ```bash
@@ -187,7 +193,7 @@ cp ensemble/results_team1.zip ./
 
 **The final result to be evaluated is the file `results_team1.zip`!**
 
-# Trouble Shooting
+## Trouble Shooting
 If you encounter 
 ```KeyError: "CenterNet: 'InternImage is not in the models registry'"```\
 or
