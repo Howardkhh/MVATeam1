@@ -8,12 +8,15 @@ It is recommended to execute our code using V100 32GB or RTX A6000, as we have t
 
 ## 1. Environment Preparation (MVATeam1)
 
-Please clone our GitHub repository:
+Please clone our GitHub repository and switch to the `submit` branch:
 
 ```bash
 git clone https://github.com/Howardkhh/MVATeam1.git
 cd MVATeam1
+git switch submit
 ```
+
+The default branch is called `main`, whereas the code we had prepared before 23:59 PST on April 21, 2023, is located in the `submit` branch.
 
 Before starting the docker container, please link the data folder to our repository:
 
