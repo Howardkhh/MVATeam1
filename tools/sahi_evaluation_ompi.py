@@ -85,24 +85,22 @@ def collect_results_gpu(result_part, size):
 
 
 def init_dist():
-    proc_id = int(os.environ['SLURM_PROCID'])
-    ntasks = int(os.environ['SLURM_NTASKS'])
-    node_list = os.environ['SLURM_NODELIST']
+    proc_id = int(os.environ['OMPI_COMM_WORLD_RANK'])
+    ntasks = int(os.environ['OMPI_COMM_WORLD_SIZE'])
     # num_gpus = torch.cuda.device_count()
     # torch.cuda.set_device(proc_id % num_gpus)
-    addr = subprocess.getoutput(f'scontrol show hostname {node_list} | head -n1')
     # specify master port
     if 'MASTER_PORT' in os.environ:
         port = os.environ['MASTER_PORT']
     else:
-        stderr.write("MASTER_PORT not defined")
+        sys.stderr.write("MASTER_PORT not defined")
         exit(1)
     # use MASTER_ADDR in the environment variable if it already exists
     if 'MASTER_ADDR' not in os.environ:
-        os.environ['MASTER_ADDR'] = addr
+        os.environ['MASTER_ADDR'] = '127.0.0.1'
     os.environ['WORLD_SIZE'] = str(ntasks)
-    os.environ['LOCAL_RANK'] = os.environ['SLURM_LOCALID']
-    print(f"local rank={os.environ['SLURM_LOCALID']}")
+    os.environ['LOCAL_RANK'] = os.environ['OMPI_COMM_WORLD_LOCAL_RANK']
+    print(f"local rank={os.environ['OMPI_COMM_WORLD_LOCAL_RANK']}")
     os.environ['RANK'] = str(proc_id)
 
     dist.init_process_group(backend='nccl')

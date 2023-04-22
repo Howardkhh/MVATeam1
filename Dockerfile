@@ -9,7 +9,7 @@ ENV MKL_NUM_THREADS=4
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt update -y \
     && apt-get install -y tzdata && ln -fs /usr/share/zoneinfo/Asia/Taiwan /etc/localtime && dpkg-reconfigure -f noninteractive tzdata \
-    && apt install -y sudo vim wget gcc libgl1-mesa-glx libglib2.0-0 zip \
+    && apt install -y sudo vim wget gcc libgl1-mesa-glx libglib2.0-0 zip openmpi-bin \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget \
