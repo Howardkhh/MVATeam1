@@ -1,6 +1,6 @@
 # Execution
 
-## 0. Hardware Requirement
+## 0. Hardware Requirements
 - Before running our model, please ensure that your GPUs have at least **26 GB** of VRAM.
 - Our environment has been deployed into a Docker image that requires the NVIDIA Container Toolkit. The Docker image is based on CUDA 11.3, please make sure that your GPU driver version is at least **465.19.01**.
 
