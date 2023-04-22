@@ -1,12 +1,12 @@
 # Execution
 
 ## 0. Hardware Requirement
-Our model requires at most 20 GB of VRAM for inferencing. Please ensure that your GPU device has such amount of VRAM, such as RTX 3090, RTX A5000, and V100 32GB. Additionally, we have deployed our environment into a docker image, which requires the NVIDIA Container Toolkit. The docker image is based on CUDA 11.3; therefore, please ensure that your GPU driver version is at least ‘465.19.01’.
+To run our model, your GPU device must have at least 20 GB of VRAM. We recommend using high-end GPUs such as RTX 3090, RTX A6000, and V100 32GB. Our environment has been deployed into a Docker image that requires the NVIDIA Container Toolkit. The Docker image is based on CUDA 11.3, so please make sure that your GPU driver version is at least '465.19.01'.
 
 It is recommended to execute our code on V100 32GB or RTX A6000, as we have tested the following scripts and docker images on these devices.
 
 ## 0.5 Hardware Requirement (Parallel)
-As inferencing a single image takes about 77 seconds, we also provide a paralleled version script for inferencing it on multiple GPUs. It requires a higher VRAM space. Please make sure that each GPU has at least 26 GB.
+We offer a parallelized version of our inference script for processing multiple images simultaneously, which can significantly reduce the processing time. However, please note that this version requires a higher VRAM space, and each GPU should have at least 26 GB.
 
 ## 1. Environment Preparation (MVATeam1)
 
