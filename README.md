@@ -94,8 +94,7 @@ MVATeam1
 │	└── internimage_xl_nwd
 │		├── intern_xl_public_nosahi_randflip.json
 │		└── latest.pth   
-├── ...
-└── setup.py
+└── ...
 ```
 
 ## 4. Inference
