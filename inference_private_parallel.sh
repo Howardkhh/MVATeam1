@@ -1,7 +1,6 @@
 NUM_GPUS=$1
 export PORT=9487
 export MASTER_PORT=9487
-mkdir work_dirs
 
 set -e
 start=`date +%s`
