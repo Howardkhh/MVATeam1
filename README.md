@@ -18,7 +18,20 @@ git switch submit
 
 The default branch is called `main`, whereas the code we had prepared before 23:59 PST on April 21, 2023, is located in the `submit` branch.
 
-Before starting the docker container, please link the data folder to our repository:
+### **However, please follow this `main` branch's tutorial since it contains the most up-to-date information.**
+
+Before starting the docker container, please link the data folder to our repository. The `data` folder should contain the private test folder named `mva2023_sod4bird_private_test`, the annotation file should be named `private_test_coco_empty_ann.json` under its `annotations` folder.
+
+```bash
+data
+├── mva2023_sod4bird_private_test
+│   ├── annotations
+│   │   └── private_test_coco_empty_ann.json
+│   └── images
+│       ├── 00001.jpg
+│       └── ...
+└── ...
+```
 
 ```bash
 ln -s <absolute path to the data folder> ./data
@@ -34,7 +47,7 @@ The docker image is built with the `Dockerfile` within the root of our repositor
 
 As inferencing using MMDetection requires a larger shared memory space (`/dev/shm`), we set the Docker container to have 32GB of shared memory space. The size could be changed by editing the `SHMEM_SIZE` variable in the `Makefile`.
 
-After launching the Docker container, the working directory should be the `MVATeam1` folder. Next, please install the MMDetection development package inside the container by:
+After launching the Docker container, **the working directory should be the `MVATeam1` folder**. Next, please install the MMDetection development package inside the container by:
 
 ```bash
 make post_install
@@ -61,7 +74,7 @@ du -sh final
 ```
 
 ## 3. Folder Contents 
-Please make sure that the files are in the following format (only the most important files are listed):
+Please make sure that the files are in the following structure (only the most important files are listed):
 ```bash
 MVATeam1
 ├── configs
@@ -108,7 +121,8 @@ bash inference_private_parallel.sh <NUM_GPUS>
 bash inference_private_parallel.sh 4
 ```
 
-### **The final results to be evaluated is the file `results_team1.zip`!**
+### **The final results to be evaluated is the file `results_team1.zip` under the `MVATeam1` folder!**
+`results_team1.zip` contains a single file, `results.json`, which is our predictions on the private test data.
 
 # Troubleshooting
 ## 1. Cannot Download Model Weights
@@ -130,9 +144,8 @@ import mmcv_custom  # noqa: F401,F403
 ```
 to the python script you are running.
 
-
 # Auxiliary Training Data
-We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded our dataset to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded with the following commands:
+Open sourced datasets are allowed in this contest. We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded it to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded with the following commands:
 
 ```bash
 cd data
