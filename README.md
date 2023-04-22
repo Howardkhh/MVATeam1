@@ -71,29 +71,29 @@ MVATeam1
 │   └── ...
 ├── ensemble
 ├── final
-│	├── baseline_centernet
-│	│   ├── centernet_resnet18_140e_coco_inference.py
-│	│   └── latest.pth
-│	├── cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train
-│	│   └── latest.pth
-│	├── cascade_nwd_paste_howard
-│	│   ├── cascade_nwd_paste_howard.zip
-│	│   └── latest.pth
-│	├── cascade_rcnn_r50_fpn_40e_coco_finetune_sticker
-│	│   └── latest.pth
-│	├── cascade_rcnn_r50_fpn_40e_coco_nwd_finetune
-│	│   ├── cascade_rcnn_r50_fpn_40e_coco_finetune_original.py
-│	│   └── latest.pth
-│	├── internimage_h_nwd
-│	│   ├── intern_h_public.json
-│	│   ├── intern_h_public_nosahi.json
-│	│   ├── intern_h_public_nosahi_randflip.json
-│	│   └── latest.pth
-│	├── internimage_xl_no_nwd
-│	│   └── latest.pth
-│	└── internimage_xl_nwd
-│		├── intern_xl_public_nosahi_randflip.json
-│		└── latest.pth   
+│   ├── baseline_centernet
+│   │   ├── centernet_resnet18_140e_coco_inference.py
+│   │   └── latest.pth
+│   ├── cascade_mask_internimage_xl_fpn_20e_nwd_finetune_merged_train
+│   │   └── latest.pth
+│   ├── cascade_nwd_paste_howard
+│   │   ├── cascade_nwd_paste_howard.zip
+│   │   └── latest.pth
+│   ├── cascade_rcnn_r50_fpn_40e_coco_finetune_sticker
+│   │   └── latest.pth
+│   ├── cascade_rcnn_r50_fpn_40e_coco_nwd_finetune
+│   │   ├── cascade_rcnn_r50_fpn_40e_coco_finetune_original.py
+│   │   └── latest.pth
+│   ├── internimage_h_nwd
+│   │   ├── intern_h_public.json
+│   │   ├── intern_h_public_nosahi.json
+│   │   ├── intern_h_public_nosahi_randflip.json
+│   │   └── latest.pth
+│   ├── internimage_xl_no_nwd
+│   │   └── latest.pth
+│   └── internimage_xl_nwd
+│   	├── intern_xl_public_nosahi_randflip.json
+│   	└── latest.pth   
 └── ...
 ```
 
@@ -107,7 +107,7 @@ bash inference_private_parallel.sh 4
 
 ### **The final results to be evaluated is the file `results_team1.zip`!**
 
-# Trouble Shooting
+# Troubleshooting
 ## 1. Cannot Download Model Weights
 
 In case of download quota exceeded, we provide another link. Please make sure the tarball is properly extracted.
