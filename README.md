@@ -5,6 +5,9 @@ Our model requires at most 20 GB of VRAM for inferencing. Please ensure that you
 
 It is recommended to execute our code on V100 32GB or RTX A6000, as we have tested the following scripts and docker images on these devices.
 
+## 0.5 Hardware Requirement (Parallel)
+As inferencing a single image takes about 77 seconds, we also provide a paralleled version script for inferencing it on multiple GPUs. It requires a higher VRAM space. Please make sure that each GPU has at least 26 GB.
+
 ## 1. Environment Preparation (MVATeam1)
 
 Please clone our GitHub repository:
@@ -108,6 +111,13 @@ A bash script for step 3 and 4 has been prepared:
 ```bash
 bash inference_private.sh
 ```
+The paralleled version script can be executed by:
+```bash
+bash inference_private_parallel.sh <NUM_GPUS>
+# E.g.:
+bash inference_private_parallel.sh 4
+```
+
 where the script executes the following commands.
 ```bash
 # cascade_original.json
@@ -171,7 +181,7 @@ python tools/sahi_evaluation.py  configs/mva2023/cascade_mask_internimage_h_fpn_
 
 ## 4. Ensemble
 
-The following commands are also included in the `inference_private.sh`.
+The following commands are also included in the `inference_private.sh` and `inference_private_parallel.sh`.
 ```bash
 mv cascade_original.bbox.json ensemble/cascade_original.json
 mv intern_h_public_nosahi.bbox.json ensemble/intern_h_public_nosahi.json
