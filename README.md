@@ -6,8 +6,11 @@
 
 It is recommended to execute our code using V100 32GB or RTX A6000, as we have tested the following scripts and docker images on these devices.
 
-## 1. Environment Preparation (MVATeam1)
+<br/>
 
+## 1. Environment Preparation (MVATeam1)
+### 1.1 Cloning Our Repository
+---
 Please clone our GitHub repository and switch to the `submit` branch:
 
 ```bash
@@ -20,6 +23,10 @@ The default branch is called `main`, whereas the code we had prepared before 23:
 
 ### **However, please follow this `main` branch's tutorial since it contains the most up-to-date information.**
 
+<br/>
+
+### 1.2 Preparing Private Test Data
+---
 Before starting the docker container, please link the data folder to our repository. The `data` folder should contain the private test folder named `mva2023_sod4bird_private_test`, the annotation file should be named `private_test_coco_empty_ann.json` under its `annotations` folder.
 
 ```bash
@@ -37,21 +44,29 @@ data
 ln -s <absolute path to the data folder> ./data
 ```
 
+<br/>
+
+### 1.3 Launching Docker Container
+---
 The docker container can be launched by:
 
 ```bash
 make start
 ```
+After launching the Docker container, the working directory should be the `MVATeam1` folder. 
 
-The docker image is built with the `Dockerfile` within the root of our repository, and has been uploaded to the Dockerhub. Invoking `make start` will also download the image.
+**All of the commands below should be executed in `MVATeam1` directory.**
 
-As inferencing using MMDetection requires a larger shared memory space (`/dev/shm`), we set the Docker container to have 32GB of shared memory space. The size could be changed by editing the `SHMEM_SIZE` variable in the `Makefile`.
-
-After launching the Docker container, **the working directory should be the `MVATeam1` folder**. Next, please install the MMDetection development package inside the container by:
+Next, please install the MMDetection development package inside the container by:
 
 ```bash
 make post_install
 ```
+The docker image is built with the `Dockerfile` within the root of our repository, and has been uploaded to the Dockerhub. Invoking `make start` will also download the image.
+
+As inferencing using MMDetection requires a larger shared memory space (`/dev/shm`), we set the Docker container to have 32GB of shared memory space. The size could be changed by editing the `SHMEM_SIZE` variable in the `Makefile`.
+
+<br/>
 
 ## 2. Model Weights
 
@@ -63,8 +78,6 @@ gdown --folder https://drive.google.com/drive/folders/1zNZTGmlRVsPSpxrVwpik17I2w
 
 A single folder named `final` should be downloaded to the root of our repository. 
 
-
-
 **Important:** Please ensure that **all files** are fully downloaded (the progress bars should be at 100%). 
 
 The size of the `final` folder should be 36 GB.
@@ -72,6 +85,8 @@ The size of the `final` folder should be 36 GB.
 du -sh final
 # output: 36G        final
 ```
+
+<br/>
 
 ## 3. Folder Contents 
 Please make sure that the files are in the following structure (only the most important files are listed):
@@ -83,6 +98,7 @@ MVATeam1
 │   │   ├── annotations
 │   │   │   └── private_test_coco_empty_ann.json
 │   │   └── images
+│   │       ├── 00001.jpg
 │   │       └── ...
 │   └── ...
 ├── ensemble
@@ -109,20 +125,29 @@ MVATeam1
 │   │   └── latest.pth
 │   └── internimage_xl_nwd
 │   	├── intern_xl_public_nosahi_randflip.json
-│   	└── latest.pth   
+│   	└── latest.pth
+├── inference_private_parallel.sh
 └── ...
 ```
 
+<br/>
+
 ## 4. Inference
-A bash script for inferencing has been prepared, please change the variable `<NUM_GPUS>` depending on your system:
+A bash script for inferencing has been prepared in the `MVATeam1` folder.
+
+Please change the variable `<NUM_GPUS>` depending on your system, and then run the script under `MVATeam1` directory:
 ```bash
 bash inference_private_parallel.sh <NUM_GPUS>
 # E.g.:
 bash inference_private_parallel.sh 4
 ```
+**Note:** There is another bash script called `inference_private.sh`, which is a serial version that produces the same output. However, we strongly recommand using the parallel version due to the extended inference time of our model.
+
+This script automatically inferences with all of our models and runs the ensemble process. It would save the final predictions to `results.json` and zip it to `results_team1.zip`.
 
 ### **The final results to be evaluated is the file `results_team1.zip` under the `MVATeam1` folder!**
-`results_team1.zip` contains a single file, `results.json`, which is our predictions on the private test data.
+
+<br/>
 
 # Troubleshooting
 ## 1. Cannot Download Model Weights
@@ -132,6 +157,7 @@ In case of download quota exceeded, we provide another link. Please make sure th
 gdown 'https://drive.google.com/u/3/uc?id=1fRW-3CVf3t5EQUjYfh6BQN27VvTRTn9a&export=download'
 tar zxvf final.tar.gz
 ```
+
 ## 2. Internimage Custom Imports
 If you encounter 
 ```KeyError: "CenterNet: 'InternImage is not in the models registry'"```\
@@ -143,6 +169,8 @@ import mmdet_custom  # noqa: F401,F403
 import mmcv_custom  # noqa: F401,F403
 ```
 to the python script you are running.
+
+<br/>
 
 # Auxiliary Training Data
 Open sourced datasets are allowed in this contest. We use an auxiliary dataset (https://www.kaggle.com/datasets/nelyg8002000/birds-flying) to augment our data during training. We have uploaded it to the Google Drive. For detailed usage, please refer to the class: `MVAPasteBirds` in `MVATeam1/mmdet/datasets/pipelines/transforms.py`. It can be downloaded with the following commands:
