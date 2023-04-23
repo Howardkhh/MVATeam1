@@ -10,7 +10,6 @@ It is recommended to execute our code using V100 32GB or RTX A6000, as we have t
 
 ## 1. Environment Preparation (MVATeam1)
 ### 1.1 Cloning Our Repository
----
 Please clone our GitHub repository and switch to the `submit` branch:
 
 ```bash
@@ -26,7 +25,6 @@ The default branch is called `main`, whereas the code we had prepared before 23:
 <br/>
 
 ### 1.2 Preparing Private Test Data
----
 Before starting the docker container, please link the data folder to our repository. The `data` folder should contain the private test folder named `mva2023_sod4bird_private_test`, the annotation file should be named `private_test_coco_empty_ann.json` under its `annotations` folder.
 
 ```bash
@@ -47,7 +45,6 @@ ln -s <absolute path to the data folder> ./data
 <br/>
 
 ### 1.3 Launching Docker Container
----
 The docker container can be launched by:
 
 ```bash
@@ -141,9 +138,9 @@ bash inference_private_parallel.sh <NUM_GPUS>
 # E.g.:
 bash inference_private_parallel.sh 4
 ```
-**Note:** There is another bash script called `inference_private.sh`, which is a serial version that produces the same output. However, we strongly recommand using the parallel version due to the extended inference time of our model.
+**Note:** There is another bash script called `inference_private.sh`, which is a serial version that produces the same output. However, we strongly recommand using the parallel version due to the extended inference time of our models.
 
-This script automatically inferences with all of our models and runs the ensemble process. It would save the final predictions to `results.json` and zip it to `results_team1.zip`.
+This script automatically inferences with all of our models and runs the ensemble process. Upon completion, the final predictions are saved as `results.json` and zipped into `results_team1.zip`.
 
 ### **The final results to be evaluated is the file `results_team1.zip` under the `MVATeam1` folder!**
 
