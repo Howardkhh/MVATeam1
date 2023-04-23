@@ -25,7 +25,7 @@ The default branch is called `main`, whereas the code we had prepared before 23:
 <br/>
 
 ### 1.2 Preparing Private Test Data
-Before starting the docker container, please link the data folder to our repository. The `data` folder should contain the private test folder named `mva2023_sod4bird_private_test`, the annotation file should be named `private_test_coco_empty_ann.json` under its `annotations` folder.
+Before launching the Docker container, ensure that the data folder is linked to our repository. The data folder should contain the private test folder named `mva2023_sod4bird_private_test`. Inside this folder, the annotation file should be named `private_test_coco_empty_ann.json` and placed under the `annotations` subfolder.
 
 ```bash
 data
@@ -138,7 +138,7 @@ bash inference_private_parallel.sh <NUM_GPUS>
 # E.g.:
 bash inference_private_parallel.sh 4
 ```
-**Note:** There is another bash script called `inference_private.sh`, which is a serial version that produces the same output. However, we strongly recommand using the parallel version due to the extended inference time of our models.
+**Note:** There is an alternative bash script called `inference_private.sh`, which is a sequential version that runs on a single GPU and produces the same output. However, we strongly recommend using the parallel version due to the extended inference time of our models.
 
 This script automatically inferences with all of our models and runs the ensemble process. Upon completion, the final predictions are saved as `results.json` and zipped into `results_team1.zip`.
 
